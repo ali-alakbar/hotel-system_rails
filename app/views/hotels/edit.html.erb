@@ -1,0 +1,17 @@
+
+<div class="new_hotel_page">
+    <div class="intro" style = "text-align: center;">
+        <h1>Update The hotel</h1>
+    </div>
+    
+    <%= form_with(model: @hotel, local: true) do |form| %>
+    <%= form.label "Hotel(name): " %>
+    <%= form.text_field :hotel_name %>
+    <br>
+
+    <%= form.submit %>
+    <% end %>
+
+    <%= link_to "Back", hotels_path %>
+
+</div>

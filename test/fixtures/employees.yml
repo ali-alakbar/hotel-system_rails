@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  birthday: 2023-02-01
+  joining_date: 2023-02-01
+  salary: 1.5
+  employee_id: MyString
+  total: 1.5
+  hotel: one
+
+two:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  birthday: 2023-02-01
+  joining_date: 2023-02-01
+  salary: 1.5
+  employee_id: MyString
+  total: 1.5
+  hotel: two

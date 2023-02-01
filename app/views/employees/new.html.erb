@@ -1,0 +1,70 @@
+
+<div data-controller="salary" class="new_employee_page">
+    <div class="intro" style = "text-align: center;">
+        <h1>New employee</h1>
+    </div>
+    
+    <%= form_with(model: @employee, local: true, data: {controller: "salary"}) do |form| %>
+    <%= form.label "Fname" %>
+    <%= form.text_field :first_name %>
+
+    <br>
+    <%= form.label "Lname" %>
+    <%= form.text_field :last_name %>
+
+    <br>
+    <%= form.label "Email" %>
+    <%= form.text_field :email %>
+
+    <br>
+    <%= form.label "Joinindate" %>
+    <%= form.date_field :joining_data %>
+
+    <br>
+    <%= form.label "Birthday" %>
+    <%= form.date_field :birthday %>
+    <br>
+    <%= form.label "Salary" %>
+    <%= form.number_field :salary, data:{ salary_target: "salary" } %>
+
+    <br>
+    <%= form.label "Hotel's ID" %>
+    <%= form.number_field :employee_id %>
+
+<% if Hotel.all.count > 0  %>
+    <div style="margin: 5rem 0;">
+        <ul style="list-style:numeric;">
+        <h3>The hotel available</h3>
+        <% Hotel.all.each do |item| %>
+        <li style="border:solid 1px black; padding: 1rem; width: fit-content;">
+            Hotel Name: <%= item.hotel_name %>
+            <br>
+            Hotel ID:   <%= item.hotel_id %>
+        </li>
+        <% end%>
+        </ul>
+    </div>
+<% end %>
+
+
+    <br>
+    <br>
+
+
+    <%
+=begin%>
+    Setting a hidden form to store the stimulus result data and give an ID so I can use DOM over it in stimulus controller.
+<%
+=end%>
+
+    <%= form.hidden_field :total , id: "total"%>
+    <%= form.submit data: {action: "click->salary#calc"}%>
+    
+    <% end %>
+
+    <br>
+    <br>
+
+    <%= link_to "Back", employees_path %>
+
+</div>
