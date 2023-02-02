@@ -2,44 +2,22 @@
 
   <h1>All rooms</h1>
   <% if @room.empty? %>
-    <p>No rooms found</p>
+    <p style="color:red; font-weight:bold;">No rooms found</p>
   <% else %>
-    <div  style= "
-              display: flex;
-              flex-wrap: wrap;
-              gap: 2rem;
-              width: 60%;
-            ">
-
+    <div  style= "display: flex; flex-wrap: wrap; gap: 2rem; width: 60%; ">
       <% @room.each do |item| %>
-      <div class="rooms-list" style="
-                        margin:1rem 0; 
-                        margin: 1rem 0;
-                        width: fit-content;
-                        border: solid 1px black;
-                        padding: 2rem;
-                        display: grid;
-                        gap: 1rem;
-                        "
-                        >
-
+      <div class="rooms-list" style=" margin:1rem 0; margin: 1rem 0; width: fit-content; border: solid 1px black; padding: 2rem; display: grid; gap: 1rem; " >
             <div>
                 Room No: <b> <%= item.room_no%> </b>
                 <br>
-                Price: <b> <%= item.price%> </b>
+                Price: <b> <%= item.price%> $</b>
             </div>
-
-
             <div style="display: flex; gap:1rem;" class="links">
                 <%= link_to "Show", rooms_path(item) %>
                 <%= link_to "Edit", edit_room_path(item) %>
-                <%= button_to "Delete", rooms_path(item), method: :delete %>
-                <%= button_to "Reserve", rooms_path(item) %>
-
+                <%= button_to "Delete", room_path(item), method: :delete, data: { confirm: "Are you sure?" } %>
             </div>
-            <div class="notice" style="position: absolute; left:50%; top:50%; transform: translate(-50%, -50%); color:red; font-weight: bold; font-size: 2rem;"><%= flash[:notice] %></div>
-
-            
+            <div class="notice" style="position: absolute; left:50%; top:50%; transform: translate(-50%, -50%); color:red; font-weight: bold; font-size: 2rem;"><%= flash[:notice] %></div>            
         </div>
       <% end %>
     </div>

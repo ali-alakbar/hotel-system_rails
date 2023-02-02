@@ -1,12 +1,6 @@
 class RoomsController < ApplicationController
     def index
-        flash[:notice] 
-        if Hotel.count == 0
-            puts "You must create a hotel"
-            redirect_to root_path, notice: "Please add a hotel first."
-        else
-            @room = Room.all
-        end
+        @room = Room.all
     end
 
     def show
@@ -35,22 +29,11 @@ class RoomsController < ApplicationController
 
     def create
         @room = Room.new(rooms_params)
-        hotel = Hotel.find_by(hotel_id: @room.room_id)
-        hotel_id = hotel.hotel_id.to_s.gsub(" ", "") if hotel.try(:hotel_id).present?
-        room_id = @room.room_id.gsub(" ", "")
-        
-        if hotel_id == room_id
-            @room.hotel_id = hotel.id
-            if @room.save
-                redirect_to rooms_path, notice:  "Room is saved successfully."
-            else
-                redirect_to rooms_path, notice:  "You must create a hotel first."
-            end
+        if @room.save
+            redirect_to rooms_path, notice:  "Room is saved successfully."
         else
-
-        redirect_to rooms_path, notice:  "The hotel ID is NOT exist, You must create a hotel first."
+            render 'new'
         end
-    
         flash[:notice]
 
     end
@@ -65,6 +48,6 @@ class RoomsController < ApplicationController
 
     private
     def rooms_params
-        params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price, :room_id)
+        params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price)
     end
 end

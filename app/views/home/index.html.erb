@@ -1,22 +1,8 @@
 
 <div class="home-page" style="text-align: center; font-family: 'Open Sans', sans-serif; color: #1a1a1a;">
-  <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 20px;">Welcome to the Home page</h1>
-  <div class="navigation" style="display: flex; justify-content: center;">
-  
-    <%= link_to "Employees", employees_path , style:"color: #03a9f4; text-decoration: none; font-size: 1.2rem; font-weight: 600; margin: 0 20px;" %> |
-    <%= link_to "Hotels", hotels_path,  style:"color: #03a9f4; text-decoration: none; font-size: 1.2rem; font-weight: 600; margin: 0 20px;"  %> |
-    <%= link_to "Rooms", rooms_path, style:"color: #03a9f4; text-decoration: none; font-size: 1.2rem; font-weight: 600; margin: 0 20px;"  %>
-  </div>
-
-  <div class="error-wrapper">
-    <% if flash[:notice] %>
-      <div class="notice" style="position: absolute; left:50%; top:50%; transform: translate(-50%, -50%); color:red; font-weight: bold; font-size: 2rem;"><%= flash[:notice] %></div>
-      <% else %>
-        <div style="position:absolute; left:50%; top:50%; transform: translate(-50%, -50%)">
-            <p>
-                You <b style="color:red;">need</b> to first create a hotel before going to any create any employee or room
-            </p>
-        </div>
-    <% end %>
-  </div>
+    <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 20px;">Welcome to the Home page</h1>
+    <div class="navigation" style="display: flex; justify-content: center;">
+        <%= link_to "View All Employees", employees_path , style:"color: #03a9f4; text-decoration: none; font-size: 1.2rem; font-weight: 600; margin: 0 20px;" %> |
+        <%= link_to "View All Rooms", rooms_path, style:"color: #03a9f4; text-decoration: none; font-size: 1.2rem; font-weight: 600; margin: 0 20px;"  %>
+    </div>
 </div>

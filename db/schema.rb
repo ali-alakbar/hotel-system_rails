@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_01_192429) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_02_074423) do
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -20,10 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_01_192429) do
     t.float "salary"
     t.string "employee_id"
     t.float "total"
-    t.integer "hotel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["hotel_id"], name: "index_employees_on_hotel_id"
   end
 
   create_table "homes", force: :cascade do |t|
@@ -46,12 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_01_192429) do
     t.integer "max_capacity"
     t.float "price"
     t.string "room_id"
-    t.integer "hotel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 
-  add_foreign_key "employees", "hotels"
-  add_foreign_key "rooms", "hotels"
 end

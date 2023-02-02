@@ -25,26 +25,11 @@
     <%= form.date_field :birthday %>
     <br>
     <%= form.label "Salary" %>
-    <%= form.number_field :salary, data:{ salary_target: "salary" } %>
+    <%= form.number_field :salary%>
 
     <br>
-    <%= form.label "Hotel's ID" %>
-    <%= form.number_field :employee_id %>
 
-<% if Hotel.all.count > 0  %>
-    <div style="margin: 5rem 0;">
-        <ul style="list-style:numeric;">
-        <h3>The hotel available</h3>
-        <% Hotel.all.each do |item| %>
-        <li style="border:solid 1px black; padding: 1rem; width: fit-content;">
-            Hotel Name: <%= item.hotel_name %>
-            <br>
-            Hotel ID:   <%= item.hotel_id %>
-        </li>
-        <% end%>
-        </ul>
-    </div>
-<% end %>
+
 
 
     <br>

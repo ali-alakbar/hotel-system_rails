@@ -1,13 +1,7 @@
 
 class EmployeesController < ApplicationController
     def index
-        flash[:notice] 
-        if Hotel.count == 0
-            puts "You must create a hotel"
-            redirect_to root_path, notice: "Please add a hotel first."
-        else
-            @employee = Employee.all
-        end
+        @employee = Employee.all
     end
 
     def show
@@ -36,20 +30,11 @@ class EmployeesController < ApplicationController
 
     def create
         @employee = Employee.new(employees_params)
-        hotel = Hotel.find_by(hotel_id: @employee.employee_id)
-        hotel_id = hotel.hotel_id.to_s.gsub(" ", "") if hotel.try(:hotel_id).present?
-        employee_id = @employee.employee_id.gsub(" ", "")
-        if hotel_id == employee_id
-            @employee.hotel_id = hotel.id
-            if @employee.save
-                redirect_to employees_path, notice:  "Employee is saved successfully."
-            else
-                redirect_to employees_path, notice:  "You must create a hotel first."
-            end
+        if @employee.save
+            redirect_to employees_path, notice:  "Employee is saved successfully."
         else
-        redirect_to employees_path, notice:  "The hotel ID is NOT exist, You must create a hotel first."
+            render 'new'
         end
-    
         flash[:notice]
 
     end
@@ -64,6 +49,6 @@ class EmployeesController < ApplicationController
 
     private
     def employees_params
-        params.require(:employee).permit(:first_name, :last_name, :email, :joining_date, :birthday ,:salary, :employee_id, :total)
+        params.require(:employee).permit(:first_name, :last_name, :email, :joining_date, :birthday, :salary)
     end
 end
