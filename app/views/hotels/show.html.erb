@@ -1,0 +1,26 @@
+<div class="showing-hotels">
+
+    <div class="content-intro" style="text-align:center;">
+        <h1>Your hotel info: </h1>
+    </div>
+
+    <div class="hotel-info-wrapper" style="width: fit-content; border: solid 1px black; padding: 2rem;">
+        <b>Your hotel name is: </b> <%= @hotel.name %>
+        <br>
+        <b>Your hotel address is: </b> <%= @hotel.address %>
+        <br>
+        <b>The hotel is located in: </b> <%= @hotel.city%>
+        <br>
+        <b>Your hotel phone number is: </b> <%= @hotel.phone_number %>
+        <br>
+
+        <%= button_to "Delete", hotel_path(@hotel.id), method: :delete %>
+
+    </div>
+    <hr>
+    <br>
+    <br>
+
+    <%= link_to "Back", hotels_path %>
+
+</div>

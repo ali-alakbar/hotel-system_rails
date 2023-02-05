@@ -16,16 +16,15 @@
   <%= form.label "Max capacity" %>
   <%= form.number_field :max_capacity %>
 
-  <br>
-  <%= form.label "Price(USD)" %>
-  <%= form.number_field :price %>
-  <br>
-  <%= form.label "Reserve" %>
-  <%= form.check_box :reserved %>
-  <br>
-  <br>
-  <%= form.submit %>
-<% end %>
+    <br>
+    <%= form.label :hotel_id %>
+    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a hotel" %>
+    <br>
+    <%= form.label :hotel_name %>
+    <%= form.collection_select :hotel_name, Hotel.all, :name, :name %>
+
+
+
 
   <hr>
   <br>

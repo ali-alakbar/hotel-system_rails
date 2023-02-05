@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  hotel_name: MyString
-  hotel_id: MyString
+  name: MyString
+  city: MyString
+  address: MyString
+  phone_number: MyString
 
 two:
-  hotel_name: MyString
-  hotel_id: MyString
+  name: MyString
+  city: MyString
+  address: MyString
+  phone_number: MyString

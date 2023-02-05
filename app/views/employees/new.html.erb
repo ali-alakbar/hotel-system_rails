@@ -12,6 +12,10 @@
     <%= form.label "Lname" %>
     <%= form.text_field :last_name %>
 
+  <br>
+    <%= form.label "age" %>
+    <%= form.number_field :age%>
+
     <br>
     <%= form.label "Email" %>
     <%= form.text_field :email %>
@@ -28,6 +32,11 @@
     <%= form.number_field :salary%>
 
     <br>
+    <%= form.label :hotel_id %>
+    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a hotel" %>
+    <br>
+    <%= form.label :hotel_name %>
+    <%= form.collection_select :hotel_name, Hotel.all, :name, :name %>
 
 
 
