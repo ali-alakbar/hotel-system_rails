@@ -9,7 +9,6 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
       t.float :salary
       t.string :employee_id
       t.float :total
-      t.references :hotel, null: false, foreign_key: true
 
       t.timestamps
     end

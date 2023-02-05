@@ -7,7 +7,6 @@ class CreateHotelRooms < ActiveRecord::Migration[7.0]
       t.integer :max_capacity
       t.float :total_price
       t.string :room_id
-      t.references :hotel, null: false, foreign_key: true
 
       t.timestamps
     end
