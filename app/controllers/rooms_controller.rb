@@ -50,6 +50,7 @@ class RoomsController < ApplicationController
 
 
   private
+  
   def rooms_params
       params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price, :hotel_name, :hotel_id)
   end
