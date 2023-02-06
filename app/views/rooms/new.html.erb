@@ -1,8 +1,12 @@
 
 <div class="new_room_page">
-  <div class="intro" style = "text-align: center;">
-    <h1>Create a New room</h1>
-  </div>
+    <div class="intro" style = "text-align: center;">
+        <h1>Create a New room</h1>
+    </div>
+    
+    <%= form_with(model: @rooms, local: true) do |form| %>
+    <%= form.label "Room number" %>
+    <%= form.text_field :room_no %>
 
   <%= form_with(model: @room, local: true) do |form| %>
   <%= form.label "Room number" %>
