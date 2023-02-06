@@ -1,53 +1,53 @@
 class RoomsController < ApplicationController
-    def index
-        @room = Room.all
+    
+  def index
+    @room = Room.all
+  end
+
+  def show
+    @room = Room.find(params[:id])
+  end
+
+  def edit
+    @room = Room.find(params[:id])
+  end
+
+  def update
+    @room = Room.find(params[:id])
+    if @room.update(rooms_params)
+        redirect_to rooms_path
+    else
+        render 'new'
     end
-
-    def show
-        @room = Room.find(params[:id])
-    end
-
-    def edit
-        @room = Room.find(params[:id])
-    end
-
-    def update
-        @room = Room.find(params[:id])
-        if @room.update(rooms_params)
-            redirect_to rooms_path
-        else
-            render 'new'
-        end
-    end
+  end
 
 
-    def new
-        @room = Room.new
+  def new
+    @room = Room.new
+  end
 
-    end
 
-
-    def create
-        @room = Room.new(rooms_params)
+  
+  def create
+  
+    @room = Room.new(rooms_params)
         if @room.save
             redirect_to rooms_path, notice:  "Room is saved successfully."
         else
             render 'new'
         end
         flash[:notice]
+  end
 
-    end
-
-
-    def destroy
+  
+  def destroy
         @room = Room.find(params[:id])
         @room.destroy
         redirect_to rooms_path
-    end
+  end
 
-
-    private
+  private
     def rooms_params
         params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price)
     end
-end
+  end

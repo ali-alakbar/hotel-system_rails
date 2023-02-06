@@ -6,6 +6,8 @@ ruby "3.0.0"
 # PostgreSQL
 gem 'pg'
 
+gem 'rubocop'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
