@@ -1,57 +1,51 @@
 class RoomsController < ApplicationController
+    before_action :find_rooms , only: [:show, :edit, :update, :destroy]  
   def index
-      @rooms = Room.all
+    @rooms = Room.all
   end
 
   def show
-      @rooms = Room.find(params[:id])
   end
 
   def edit
-      @rooms = Room.find(params[:id])
   end
 
   def update
-      @rooms = Room.find(params[:id])
-      if @rooms.update(rooms_params)
-          redirect_to rooms_path
-      else
-          render 'new'
-      end
+    if @rooms.update(rooms_params)
+        redirect_to rooms_path
+    else
+        render 'edit'
+    end
   end
 
 
   def new
-      @rooms = Room.new
-
+    @rooms = Room.new
   end
 
 
   def create
-      @rooms = Room.new(rooms_params)
-      if @rooms.save
-          redirect_to rooms_path, notice:  "Room is saved successfully."
-      else
-          puts "==========="
-          puts @rooms.errors.full_messages
-          puts "==========="
-          render 'new'
-      end
-      flash[:notice]
-
+    @rooms = Room.new(rooms_params)
+    if @rooms.save
+        redirect_to rooms_path
+    else
+        render 'new'
+    end
   end
 
 
   def destroy
-      @rooms = Room.find(params[:id])
-      @rooms.destroy
-      redirect_to rooms_path
+    @rooms.destroy
+    redirect_to rooms_path
   end
 
 
   private
+  def find_rooms
+    @rooms = Room.find(params[:id])
+  end
   
   def rooms_params
-      params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price, :hotel_name, :hotel_id)
+    params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price, :hotel_name, :hotel_id)
   end
 end
