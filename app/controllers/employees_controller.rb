@@ -1,6 +1,8 @@
 
 class EmployeesController < ApplicationController
   before_action :find_employee, only: [:show, :edit, :update, :destroy]  
+  after_action :check_errors,  
+
   def index
     @employees = Employee.all
   end
@@ -45,6 +47,15 @@ class EmployeesController < ApplicationController
   
   def find_employee
     @employee = Employee.find(params[:id])
+  end
+
+  def check_errors
+    if response.status == 200
+      puts "==========="
+      Rails.logger.info("Request: #{request.method} - #{request.url}")
+      Rails.logger.info("Response: #{response.status}")
+      puts "==========="
+    end
   end
 
   def employees_params

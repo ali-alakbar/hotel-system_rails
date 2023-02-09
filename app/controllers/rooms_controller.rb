@@ -1,5 +1,15 @@
 class RoomsController < ApplicationController
-    before_action :find_rooms , only: [:show, :edit, :update, :destroy]  
+  before_action :find_rooms , only: [:show, :edit, :update, :destroy]  
+
+  after_action do |room|
+    puts "You have initilized the Room #{room}"
+  end
+
+  after_action do 
+    Rails.logger.info("Request #{request.method} -- #{request.url}")
+    Rails.logger.info("Response: #{response.status}")
+  end
+    
   def index
     @rooms = Room.all
   end

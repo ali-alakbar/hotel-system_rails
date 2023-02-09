@@ -4,7 +4,7 @@
         <h1>Create a New room</h1>
     </div>
     
-    <%= form_with(model: @rooms, local: true) do |form| %>
+    <%= form_with(model: @room, local: true) do |form| %>
     <%= form.label "Room number" %>
     <%= form.text_field :room_no %>
 
