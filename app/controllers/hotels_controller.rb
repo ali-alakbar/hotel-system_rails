@@ -19,7 +19,6 @@ class HotelsController < ApplicationController
     if @hotel.save
       redirect_to hotels_path
     else
-      puts @hotel.errors.full_messages
       render 'new'
     end
   end
