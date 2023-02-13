@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_05_141546) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_13_080347) do
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_141546) do
     t.datetime "updated_at", null: false
     t.integer "hotel_id"
     t.integer "age"
-    t.string "hotel_name"
     t.index ["hotel_id"], name: "index_employees_on_hotel_id"
   end
 
@@ -39,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_141546) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "hotel_name"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -50,7 +50,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_05_141546) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "hotel_id"
-    t.string "hotel_name"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 

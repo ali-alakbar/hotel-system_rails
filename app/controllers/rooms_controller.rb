@@ -21,41 +21,41 @@ class RoomsController < ApplicationController
   end
 
   def update
-    if @rooms.update(rooms_params)
-        redirect_to rooms_path
+    if @room.update(rooms_params)
+      redirect_to rooms_path
     else
-        render 'edit'
+      render 'edit'
     end
   end
 
 
   def new
-    @rooms = Room.new
+    @room = Room.new
   end
 
 
   def create
-    @rooms = Room.new(rooms_params)
-    if @rooms.save
-        redirect_to rooms_path
+    @room = Room.new(rooms_params)
+    if @room.save
+      redirect_to rooms_path
     else
-        render 'new'
+      render 'new'
     end
   end
 
 
   def destroy
-    @rooms.destroy
+    @room.destroy
     redirect_to rooms_path
   end
 
 
   private
   def find_rooms
-    @rooms = Room.find(params[:id])
+    @room = Room.find(params[:id])
   end
   
   def rooms_params
-    params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price, :hotel_name, :hotel_id)
+    params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price, :hotel_id)
   end
 end

@@ -13,6 +13,7 @@
             </div>
             <div style="display: flex; gap:1rem;" class="links">
                 <%= link_to "Show", room_path(item) %>
+                <%= link_to "Edit", edit_room_path(item) %>
                 <%= button_to "Delete", room_path(item), method: :delete, data: { confirm: "Are you sure?" } %>
             </div>
             <div class="notice" style="position: absolute; left:50%; top:50%; transform: translate(-50%, -50%); color:red; font-weight: bold; font-size: 2rem;"><%= flash[:notice] %></div>            

@@ -11,13 +11,9 @@
       <br>
       <b>Room's max capacity is: </b> <%= @room.max_capacity%>
       <br>
-      <b>Your hotel ID is: </b> <%= @room.room_id %>
-      <br>
       <b>Total price is: </b> <%= @room.price %>
       <br>
-      <b>Hotel ID: </b> <%= @room.hotel_id %>
-      <br>
-      <b>Belongs to Hotel: </b> <%= @room.hotel_name %>
+      <b>Belongs to hotel: </b> <%= @room.hotel_id %>
 
       <%= button_to "Delete", room_path(@room.id), method: :delete %>
 

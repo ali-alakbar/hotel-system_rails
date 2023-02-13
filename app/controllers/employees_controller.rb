@@ -15,9 +15,9 @@ class EmployeesController < ApplicationController
 
   def update
     if @employee.update(employees_params)
-        redirect_to employees_path
+      redirect_to employees_path
     else
-        render 'edit'
+      render 'edit'
     end
   end
 
@@ -30,9 +30,9 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employees_params)
     if @employee.save
-        redirect_to employees_path
+      redirect_to employees_path
     else
-        render 'new'
+      render 'new'
     end
   end
 
@@ -59,6 +59,6 @@ class EmployeesController < ApplicationController
   end
 
   def employees_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :joining_date, :birthday, :salary, :hotel_name, :hotel_id, :age)
+    params.require(:employee).permit(:first_name, :last_name, :email, :joining_date, :birthday, :salary, :hotel_id, :age)
   end
 end

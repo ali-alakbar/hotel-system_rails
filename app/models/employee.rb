@@ -1,3 +1,21 @@
+
+# == Schema Information
+#
+# Table name: employees
+#
+#  first_name         :string    
+#  last_name          :string    
+#  email              :string            
+#  joining_date       :date      
+#  birthday           :date      
+#  birthday           :date      
+#  age                :integer      
+#  salary             :float      
+#  hotel_id           :integer      
+
+# ==================
+
+
 class Employee < ApplicationRecord
   belongs_to :hotel
   validates :first_name, :last_name, :joining_date, :birthday, presence: true
