@@ -1,10 +1,12 @@
 class HotelsController < ApplicationController
+  
+  before_action :find_hotel_id, only: %i[show destroy]   
+  
   def index
-    @hotel = Hotel.all
+    @hotels = Hotel.all
   end
 
   def show
-    @hotel = Hotel.find(params[:id])
   end
 
   def new
@@ -15,16 +17,15 @@ class HotelsController < ApplicationController
   def create
     @hotel = Hotel.new(hotels_params)
     if @hotel.save
-        redirect_to hotels_path, notice:  "Hotel is saved successfully."
+      redirect_to hotels_path
     else
-        render 'new'
+      puts @hotel.errors.full_messages
+      render 'new'
     end
-    flash[:notice]
   end
 
 
   def destroy
-    @hotel = Hotel.find(params[:id])
     @hotel.destroy
     redirect_to hotels_path
   end
@@ -32,7 +33,12 @@ class HotelsController < ApplicationController
 
   private
   
+  def find_hotel_id
+    @hotel = Hotel.find(params[:id])
+  end
+
   def hotels_params
     params.require(:hotel).permit(:name, :city, :address, :phone_number)
   end
 end
+

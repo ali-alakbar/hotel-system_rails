@@ -8,6 +8,7 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
       t.date :joining_date
       t.float :salary
       t.float :total
+      t.integer :age
 
       t.timestamps
     end

@@ -1,5 +1,5 @@
-<div class="Hotels">
 
+<div class="Hotels">
 <% styleCSS = "color: #03a9f4; text-decoration: none; font-size: 1.2rem; font-weight: 600; margin: 0 20px;"%>
 <div class="hotel-page" style="text-align: center; font-family: 'Open Sans', sans-serif; color: #1a1a1a; margin-bottom:9rem;">
     <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 20px;">Welcome to the hotel page</h1>
@@ -10,18 +10,18 @@
 </div>
 
   <h1>List of Hotels</h1>
-  <% if @hotel.empty? %>
+  <% if @hotels.empty? %>
     <p style="border: solid 2px black; width: fit-content; padding:2rem; color:red; font-weight:bold;">No Hotels Found :(</p>
   <% else %>
     <div  style= "display: flex; flex-wrap: wrap; gap: 2rem; width: 60%; ">
-      <% @hotel.each do |item| %>
+      <% @hotels.each do |item| %>
       <div class="Hotels-list" style=" margin:1rem 0; margin: 1rem 0; width: fit-content; border: solid 1px black; padding: 2rem; display: grid; gap: 1rem; " >
             <div>
                 hotel Name: <b> <%= item.name%> </b>
                 <br>
             </div>
             <div style="display: flex; gap:1rem;" class="links">
-                <%= link_to "Details", hotels_path(item) %>
+                <%= link_to "Details", hotel_path(item) %>
                 <%= button_to "Delete", hotel_path(item), method: :delete, data: { confirm: "Are you sure?" } %>
             </div>
             <div class="notice" style="position: absolute; left:50%; top:50%; transform: translate(-50%, -50%); color:red; font-weight: bold; font-size: 2rem;"><%= flash[:notice] %></div>            

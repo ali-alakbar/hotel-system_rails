@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_080347) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_13_215809) do
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -19,26 +19,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_080347) do
     t.date "joining_date"
     t.float "salary"
     t.float "total"
+    t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "hotel_id"
-    t.integer "age"
     t.index ["hotel_id"], name: "index_employees_on_hotel_id"
   end
 
-  create_table "homes", force: :cascade do |t|
+  create_table "hotels", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "hotels", force: :cascade do |t|
     t.string "name"
     t.string "city"
     t.string "address"
-    t.string "phone_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "hotel_name"
+    t.integer "phone_number"
   end
 
   create_table "rooms", force: :cascade do |t|

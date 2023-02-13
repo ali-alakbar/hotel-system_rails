@@ -5,16 +5,15 @@
   </div>
   
   <div class="employee-info-wrapper" style="width: 20%; border: solid 1px black; padding: 2rem;">
-            <div><b>Employee first name: </b> <%= @employee.first_name %></div>
-            <div><b>Employee last name: </b> <%= @employee.last_name %></div>
-            <div><b>Employee's email: </b> <%= @employee.email%></div>
-            <div><b>Employee's joining date: </b> <%= @employee.joining_date %></div>
-            <div><b>Employee's birthday: </b> <%= @employee.birthday %></div>
-            <div><b>Employee's Salary: </b> <%= @employee.salary %></div>
-            <div><b>Employee's Total Salary: </b>  <%= @employee.total %>  </div>
-            <div><b>Hotel ID: </b>  <%= @employee.hotel_id %>  </div>
-            <%= button_to "Delete", employee_path(@employee.id), method: :delete %>
-  
+    <div><b>     Employee first name:                 </b>     <%= @employee.first_name %>            </div>
+    <div><b>     Employee last name:                  </b>     <%= @employee.last_name %>             </div>
+    <div><b>     Employee's email:                    </b>     <%= @employee.email%>                  </div>
+    <div><b>     Employee's age:                      </b>     <%= @employee.age%>                    </div>
+    <div><b>     Employee's joining date:             </b>     <%= @employee.joining_date %>          </div>
+    <div><b>     Employee's birthday:                 </b>     <%= @employee.birthday %>              </div>
+    <div><b>     Employee's Salary:                   </b>     <%= @employee.salary %>                </div>
+    <div><b>     Employee belongs to hotel:           </b>     <%= @employee.hotel_id %>              </div>
+    <%= button_to "Delete", employee_path(@employee.id), method: :delete %>
   </div>
   
   <hr>

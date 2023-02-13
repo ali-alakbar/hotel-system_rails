@@ -21,11 +21,15 @@
   <%= form.number_field :price %>
   
   <br>
+
+  <%= form.label "Reserve" %>
+  <%= form.check_box :reserved %>
+  <br>
+
   <%= form.label "Hotel Name" %>
   <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a hotel" %>
-  
-  
   <br>
+  
   <br>
   
   <%= form.submit %>

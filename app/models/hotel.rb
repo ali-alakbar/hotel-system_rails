@@ -1,8 +1,7 @@
 
-
-# == Schema Information
+# == Schema Information == 
 #
-# Table name: employees
+# Table name: hotel
 #
 #  name            :string    
 #  string          :string    
@@ -14,7 +13,13 @@
 
 
 class Hotel < ApplicationRecord
-    has_many :rooms, dependent: :destroy
-    has_many :employees, dependent: :destroy
+
+  has_many :rooms,       dependent:  :destroy
+  has_many :employees,   dependent:  :destroy
+
+
+  validates :name, :city, :address, presence: true
+  validates :phone_number, presence: true, numericality: { only_integer: true }, length: { in: 6...12 }
+
 
 end
