@@ -6,11 +6,11 @@
 
   <%= form_with(model: @room, local: true) do |form| %>
   <%= form.label "Room number" %>
-  <%= form.text_field :room_no %>
+  <%= form.text_field :room_number %>
 
   <br>
   <%= form.label "Floor number" %>
-  <%= form.text_field :floor_no %>
+  <%= form.text_field :floor_number %>
 
   <br>
   <%= form.label "Max capacity" %>
@@ -20,10 +20,14 @@
   <%= form.label "Price(USD)" %>
   <%= form.number_field :price %>
   <br>
+  <%= form.label "Reserve" %>
+  <%= form.check_box :reserved %>
+  <br>
   <br>
   <%= form.submit %>
 <% end %>
 
+  <hr>
   <br>
   <br>
 

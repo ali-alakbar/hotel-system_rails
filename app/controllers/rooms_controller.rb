@@ -1,24 +1,13 @@
 class RoomsController < ApplicationController
-    
+  
+  before_action :find_room_id, only: %i[show destroy]   
+
   def index
-    @room = Room.all
+    @rooms = Room.all
   end
 
   def show
-    @room = Room.find(params[:id])
-  end
-
-  def edit
-    @room = Room.find(params[:id])
-  end
-
-  def update
-    @room = Room.find(params[:id])
-    if @room.update(rooms_params)
-        redirect_to rooms_path
-    else
-        render 'new'
-    end
+    
   end
 
 
@@ -29,25 +18,29 @@ class RoomsController < ApplicationController
 
   
   def create
-  
     @room = Room.new(rooms_params)
-        if @room.save
-            redirect_to rooms_path, notice:  "Room is saved successfully."
-        else
-            render 'new'
-        end
-        flash[:notice]
+    if @room.save
+      redirect_to rooms_path
+    else
+      puts "======"
+      puts @room.errors.full_messages
+      render 'new'
+    end
   end
 
   
   def destroy
-        @room = Room.find(params[:id])
-        @room.destroy
-        redirect_to rooms_path
+    @room.destroy
+    redirect_to rooms_path
   end
 
   private
-    def rooms_params
-        params.require(:room).permit(:floor_no, :room_no, :max_capacity, :price)
-    end
+
+  def find_room_id
+    @room = Room.find(params[:id])
   end
+
+  def rooms_params
+    params.require(:room).permit(:floor_number, :room_number, :max_capacity, :price, :reserved)
+  end
+end

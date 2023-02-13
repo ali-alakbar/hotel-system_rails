@@ -7,7 +7,6 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
       t.date :birthday
       t.date :joining_date
       t.float :salary
-      t.string :employee_id
       t.float :total
 
       t.timestamps
