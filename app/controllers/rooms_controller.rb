@@ -22,8 +22,6 @@ class RoomsController < ApplicationController
     if @room.save
       redirect_to rooms_path
     else
-      puts "======"
-      puts @room.errors.full_messages
       render 'new'
     end
   end
