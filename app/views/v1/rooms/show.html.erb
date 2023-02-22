@@ -17,24 +17,13 @@
     <br>
     <b>  Room's hotel:           </b> <%= @room.hotel_id %>
 
-  <div class="room-info-wrapper" style="width: fit-content; border: solid 1px black; padding: 2rem;">
-      <b>Your floor number is: </b> <%= @room.floor_no %>
-      <br>
-      <b>Your room number is: </b> <%= @room.room_no %>
-      <br>
-      <b>Room's max capacity is: </b> <%= @room.max_capacity%>
-      <br>
-      <b>Total price is: </b> <%= @room.price %>
-      <br>
-      <b>Belongs to hotel: </b> <%= @room.hotel_id %>
-
-      <%= button_to "Delete", room_path(@room.id), method: :delete %>
-
+    <%= button_to "Delete", v1_room_path(@room.id), method: :delete %>
+  
   </div>
   <hr>
   <br>
   <br>
-
-  <%= link_to "Back", rooms_path %>
+  
+  <%= link_to "Back", v1_rooms_path %>
 
 </div>

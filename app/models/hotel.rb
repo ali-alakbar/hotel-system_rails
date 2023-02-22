@@ -13,6 +13,15 @@
 
 
 class Hotel < ApplicationRecord
+  
+  acts_as_api
+
+  api_accessible :details do |t|
+    t.add :name
+    t.add :city
+    t.add :address
+    t.add :phone_number
+  end
 
   has_many :rooms,       dependent:  :destroy
   has_many :employees,   dependent:  :destroy

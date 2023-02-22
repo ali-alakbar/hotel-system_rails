@@ -32,8 +32,8 @@
 
 
             <div style="display: flex; gap:1rem;" class="links">
-                <%= link_to "Show", employee_path(item) %>
-                <%= button_to "Delete", employee_path(item), method: :delete %>
+                <%= link_to "Show", v1_employee_path(item) %>
+                <%= button_to "Delete", v1_employee_path(item), method: :delete %>
             </div>
             <div class="notice" style="position: absolute; left:50%; top:50%; transform: translate(-50%, -50%); color:red; font-weight: bold; font-size: 2rem;"><%= flash[:notice] %></div>
 
@@ -42,10 +42,10 @@
       <% end %>
     </div>
   <% end %>
-  <%= link_to "Create a New employee", new_employee_path %>
+  <%= link_to "Create a New employee", new_v1_employee_path %>
   <hr>
   <br>
-  <%= link_to "Back to Hotel Page", hotels_path %>
+  <%= link_to "Back to Hotel Page", v1_hotels_path %>
 
   
 </div>

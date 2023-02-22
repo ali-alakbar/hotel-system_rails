@@ -6,8 +6,8 @@ ruby "3.0.0"
 # PostgreSQL
 gem 'pg'
 
-# For JS integration
-gem 'jquery-rails'
+# acts_as_api library to serilize response templates
+gem 'acts_as_api'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"

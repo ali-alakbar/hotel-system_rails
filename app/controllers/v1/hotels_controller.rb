@@ -1,4 +1,7 @@
-class HotelsController < ApplicationController
+# include ExceptionHandler
+# include ResponseRenderer
+
+class V1::HotelsController < ApplicationController
   
   before_action :find_hotel_id, only: %i[show destroy]   
   
@@ -17,7 +20,7 @@ class HotelsController < ApplicationController
   def create
     @hotel = Hotel.new(hotels_params)
     if @hotel.save
-      redirect_to hotels_path
+      redirect_to v1_hotels_path
     else
       render 'new'
     end
@@ -26,7 +29,7 @@ class HotelsController < ApplicationController
 
   def destroy
     @hotel.destroy
-    redirect_to hotels_path
+    redirect_to v1_hotels_path
   end
 
 

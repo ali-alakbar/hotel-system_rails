@@ -13,14 +13,14 @@
     <div><b>     Employee's birthday:                 </b>     <%= @employee.birthday %>              </div>
     <div><b>     Employee's Salary:                   </b>     <%= @employee.salary %>                </div>
     <div><b>     Employee belongs to hotel:           </b>     <%= @employee.hotel_id %>              </div>
-    <%= button_to "Delete", employee_path(@employee.id), method: :delete %>
+    <%= button_to "Delete", v1employee_path(@employee.id), method: :delete %>
   </div>
   
   <hr>
   <br>
   <br>
   
-  <%= link_to "Back", employees_path %>
+  <%= link_to "Back", v1_employees_path %>
   
   
   <style>

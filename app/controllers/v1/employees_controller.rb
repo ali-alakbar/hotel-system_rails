@@ -1,8 +1,7 @@
 
-class EmployeesController < ApplicationController
-  before_action :find_employee, only: [:show, :edit, :update, :destroy]  
-  after_action :check_errors,  
-
+class V1::EmployeesController < ApplicationController
+  before_action :find_employee_id, only: %i[show destroy]   
+    
   def index
     @employees = Employee.all
   end
@@ -30,7 +29,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employees_params)
     if @employee.save
-      redirect_to employees_path
+        redirect_to v1_employees_path
     else
       render 'new'
     end
@@ -39,7 +38,7 @@ class EmployeesController < ApplicationController
 
   def destroy
     @employee.destroy
-    redirect_to employees_path
+    redirect_to v1_employees_path
   end
 
 

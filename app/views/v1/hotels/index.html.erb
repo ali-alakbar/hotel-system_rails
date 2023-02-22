@@ -4,8 +4,8 @@
 <div class="hotel-page" style="text-align: center; font-family: 'Open Sans', sans-serif; color: #1a1a1a; margin-bottom:9rem;">
     <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 20px;">Welcome to the hotel page</h1>
     <div class="navigation" style="display: flex; justify-content: center;">
-        <%= link_to "View All Employees", employees_path , style:styleCSS %> |
-        <%= link_to "View All Rooms", rooms_path, style:styleCSS  %>
+        <%= link_to "View All Employees", v1_employees_path , style:styleCSS %> |
+        <%= link_to "View All Rooms", v1_rooms_path, style:styleCSS  %>
     </div>
 </div>
 
@@ -21,10 +21,9 @@
                 <br>
             </div>
             <div style="display: flex; gap:1rem;" class="links">
-                <%= link_to "Details", hotel_path(item) %>
-                <%= button_to "Delete", hotel_path(item), method: :delete, data: { confirm: "Are you sure?" } %>
+                <%= link_to "Details", v1_hotel_path(item) %>
+                <%= button_to "Delete", v1_hotel_path(item), method: :delete, data: { confirm: "Are you sure?" } %>
             </div>
-            <div class="notice" style="position: absolute; left:50%; top:50%; transform: translate(-50%, -50%); color:red; font-weight: bold; font-size: 2rem;"><%= flash[:notice] %></div>            
         </div>
       <% end %>
     </div>
@@ -32,6 +31,6 @@
   
   <hr>
   <br>
-  <%= link_to "Create a New hotel", new_hotel_path %>
+  <%= link_to "Create a New hotel", new_v1_hotel_path %>
   
 </div>

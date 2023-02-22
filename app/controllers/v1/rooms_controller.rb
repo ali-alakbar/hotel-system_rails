@@ -1,5 +1,6 @@
-class RoomsController < ApplicationController
-  before_action :find_rooms , only: [:show, :edit, :update, :destroy]  
+class V1::RoomsController < ApplicationController
+  
+  before_action :find_room_id, only: %i[show destroy]   
 
   after_action do |room|
     puts "You have initilized the Room #{room}"
@@ -37,7 +38,7 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(rooms_params)
     if @room.save
-      redirect_to rooms_path
+      redirect_to v1_rooms_path
     else
       render 'new'
     end
@@ -46,7 +47,7 @@ class RoomsController < ApplicationController
 
   def destroy
     @room.destroy
-    redirect_to rooms_path
+    redirect_to v1_rooms_path
   end
 
 
