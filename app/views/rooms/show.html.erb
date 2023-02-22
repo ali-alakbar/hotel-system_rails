@@ -1,0 +1,27 @@
+<div class="showing-rooms">
+
+  <div class="content-intro" style="text-align:center;">
+    <h1>Your Room info: </h1>
+  </div>
+  
+  <div class="room-info-wrapper" style="width: fit-content; border: solid 1px black; padding: 2rem;">
+    <b>Your floor number is: </b> <%= @room.floor_number %>
+    <br>
+    <b>Your room number is: </b> <%= @room.room_number %>
+    <br>
+    <b>Room's max capacity is: </b> <%= @room.max_capacity%>
+    <br>
+    <b>Total price is: </b> <%= @room.price %>
+    <br>
+    <b>Is reserved: </b> <%= @room.reserved %>
+
+    <%= button_to "Delete", room_path(@room.id), method: :delete %>
+  
+  </div>
+  <hr>
+  <br>
+  <br>
+  
+  <%= link_to "Back", rooms_path %>
+
+</div>
