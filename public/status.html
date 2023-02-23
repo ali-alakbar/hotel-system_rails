@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Server Staus</title>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      text-align: center;
+      padding: 150px;
+    }
+
+    h1 {
+      font-size: 50px;
+    }
+
+    body {
+      font: 20px Helvetica, sans-serif;
+      color: #333;
+    }
+
+    article {
+      display: block;
+      text-align: left;
+      width: 1050px;
+      margin: 0 auto;
+    }
+
+    a {
+      color: #dc8100;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #333;
+      text-decoration: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <article>
+    <h1 style="color:Tomato;">
+      <%=Rails.env.capitalize%> Server
+    </h1>
+    <div>
+      <p style="color:DodgerBlue;">Trucks APIs server is running, Enjoy with our api&rsquo;s!</p>
+      <div style="overflow-x:auto;">
+        <table>
+          <tr>
+            <th>Status</th>
+            <th>Environment</th>
+            <th>Message</th>
+            <th>Version</th>
+          </tr>
+          <tr>
+            <td>Running</td>
+            <td>
+              <%=Rails.env.capitalize%>
+            </td>
+            <td>Trucks APIs server is up</td>
+            <td>
+              <%=@build_revision%>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p style="color:MediumSeaGreen;">&mdash; Best regards: Back-end Team</p>
+    </div>
+  </article>
+</body>
+
+</html>

@@ -1,5 +1,3 @@
-# include ExceptionHandler
-# include ResponseRenderer
 
 class V1::HotelsController < ApplicationController
   
@@ -11,14 +9,14 @@ class V1::HotelsController < ApplicationController
 
   def show
   end
-
+  
   def new
     @hotel = Hotel.new
   end
 
 
   def create
-    @hotel = Hotel.new(hotels_params)
+    @hotel = Hotel.create(hotels_params)
     if @hotel.save
       redirect_to v1_hotels_path
     else
@@ -26,8 +24,10 @@ class V1::HotelsController < ApplicationController
     end
   end
 
-
   def destroy
+    puts "------"
+    puts "------"
+    puts "------"
     @hotel.destroy
     redirect_to v1_hotels_path
   end

@@ -3,8 +3,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.0"
 
+
+gem 'consul'
+
 # PostgreSQL
 gem 'pg'
+
+# Ransack library
+gem 'ransack'
 
 # acts_as_api library to serilize response templates
 gem 'acts_as_api'

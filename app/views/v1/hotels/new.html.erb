@@ -4,27 +4,27 @@
     <h1>Create a New hotel</h1>
   </div>
   
-  <%= form_with(model: @hotel, local: true) do |form| %>
-  <%= form.label "Hotel Name:" %>
-  <%= form.text_field :name %>
-  
-  <br>
-  <%= form.label "Hotel Address:" %>
-  <%= form.text_field :address %>
-  
-  <br>
-  <%= form.label "Which city: " %>
-  <%= form.text_field :city %>
-  
-  <br>
-  <%= form.label "Phone Number" %>
-  <%= form.number_field :phone_number %>
-  
-  
-  <br>
-  <br>
-  
-  <%= form.submit %>
+  <%= form_with(model: @hotel, local: true, url: v1_hotels_path) do |form| %>
+    <%= form.label "Hotel Name:" %>
+    <%= form.text_field :name %>
+    
+    <br>
+    <%= form.label "Hotel Address:" %>
+    <%= form.text_field :address %>
+    
+    <br>
+    <%= form.label "Which city: " %>
+    <%= form.text_field :city %>
+    
+    <br>
+    <%= form.label "Phone Number" %>
+    <%= form.number_field :phone_number %>
+    
+    
+    <br>
+    <br>
+    
+    <%= form.submit %>
   <% end %>
   
   <br>

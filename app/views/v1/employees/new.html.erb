@@ -4,7 +4,7 @@
       <h1>New employee</h1>
   </div>
   
-  <%= form_with(model: @employee, local: true, data: {controller: "salary"}) do |form| %>
+  <%= form_with(model: @employee, local: true, data: {controller: "salary"}, url: v1_employees_path) do |form| %>
   <%= form.label "Fname" %>
   <%= form.text_field :first_name %>  
   <br>
@@ -44,11 +44,6 @@
     <br>
 
 
-    <%
-=begin%>
-    Setting a hidden form to store the stimulus result data and give an ID so I can use DOM over it in stimulus controller.
-<%
-=end%>
 
     <%= form.hidden_field :total , id: "total"%>
     <%= form.submit data: {action: "click->salary#calc"}%>

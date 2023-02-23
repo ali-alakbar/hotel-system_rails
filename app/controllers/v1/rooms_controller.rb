@@ -29,12 +29,10 @@ class V1::RoomsController < ApplicationController
     end
   end
 
-
   def new
     @room = Room.new
   end
-
-
+  
   def create
     @room = Room.new(rooms_params)
     if @room.save
@@ -43,7 +41,6 @@ class V1::RoomsController < ApplicationController
       render 'new'
     end
   end
-
 
   def destroy
     @room.destroy

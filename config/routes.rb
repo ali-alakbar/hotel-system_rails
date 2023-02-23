@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root to: 'v1/hotels#index'  
-  resources :hotels, :rooms, :employees
 
   namespace :v1 do 
     resources :hotels
     resources :rooms 
     resources :employees
+    get '/status', to: 'status#index'
   end
 
 
