@@ -11,6 +11,8 @@
 
   <br>
   <%= paginate @employees%>
+  <br>
+  Total Employees: <%= @employees.total_count %>
 
 
   <% if @employees.empty? %>
