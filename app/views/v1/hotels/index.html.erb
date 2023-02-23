@@ -18,6 +18,11 @@
     <%= f.submit "Search" %>
   <% end %>
 
+  <div>
+    <%= paginate @hotels %>
+    <br>
+    Total hotels: <%= @hotels.total_count %>
+  </div>
  
   <% if @hotels.empty? %>
     <p style="border: solid 2px black; width: fit-content; padding:2rem; color:red; font-weight:bold;">No Hotels Found :(</p>

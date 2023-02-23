@@ -9,6 +9,8 @@
     <%= f.submit "Search" %>
   <% end %>
 
+  <br>
+  <%= paginate @employees%>
 
 
   <% if @employees.empty? %>

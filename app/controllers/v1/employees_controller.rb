@@ -4,7 +4,7 @@ class V1::EmployeesController < ApplicationController
     
   def index
     @q = Employee.ransack(params[:q])
-    @employees = @q.result(distinct: true)
+    @employees = @q.result(distinct: true).page(params[:page]).per(2)
   end
   
   def show
