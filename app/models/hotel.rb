@@ -1,4 +1,3 @@
-
 # == Schema Information == 
 #
 # Table name: hotel
@@ -12,7 +11,12 @@
 
 
 
+
 class Hotel < ApplicationRecord
+  
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w[name]
+  end
   
   acts_as_api
 

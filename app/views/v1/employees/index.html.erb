@@ -1,6 +1,16 @@
 <div class="employees">
 
   <h1>All employees</h1>
+
+
+  <%= search_form_for @q, url: v1_employees_path do |f| %>
+    <%= f.label :email_cont, "Employee by email" %>
+    <%= f.search_field :email_cont %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+
+
   <% if @employees.empty? %>
     <p>No employees found</p>
   <% else %>

@@ -10,6 +10,15 @@
 </div>
 
   <h1>List of Hotels</h1>
+
+
+  <%= search_form_for @q, url: v1_hotels_path do |f| %>
+    <%= f.label :name_cont, "Hotel by name" %>
+    <%= f.search_field :name_cont %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+ 
   <% if @hotels.empty? %>
     <p style="border: solid 2px black; width: fit-content; padding:2rem; color:red; font-weight:bold;">No Hotels Found :(</p>
   <% else %>
@@ -27,7 +36,7 @@
         </div>
       <% end %>
     </div>
-  <% end %>
+  <% end %> 
   
   <hr>
   <br>

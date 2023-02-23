@@ -1,6 +1,19 @@
 <div class="rooms">
 
   <h1>All rooms</h1>
+
+
+  <%= search_form_for @q, url: v1_rooms_path do |f| %>
+    <%= f.label :room_number_cont, "Room by number" %>
+    <%= f.search_field :room_number_cont %>
+    <div>
+      <%= sort_link @q, :price, "Price" %>
+    </div>
+    <%= f.submit "Search" %>
+  <% end %>
+
+
+
   <% if @rooms.empty? %>
     <p style="color:red; font-weight:bold;">No rooms found</p>
   <% else %>

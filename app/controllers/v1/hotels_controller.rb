@@ -4,7 +4,8 @@ class V1::HotelsController < ApplicationController
   before_action :find_hotel_id, only: %i[show destroy]   
   
   def index
-    @hotels = Hotel.all
+    @q = Hotel.ransack(params[:q])
+    @hotels = @q.result(distinct: true)
   end
 
   def show

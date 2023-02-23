@@ -18,6 +18,11 @@
 
 class Employee < ApplicationRecord
   
+
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w[email]
+  end
+
   belongs_to :hotel
 
   validates :first_name, :last_name, presence: true

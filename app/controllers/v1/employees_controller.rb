@@ -3,9 +3,10 @@ class V1::EmployeesController < ApplicationController
   before_action :find_employee_id, only: %i[show destroy]   
     
   def index
-    @employees = Employee.all
+    @q = Employee.ransack(params[:q])
+    @employees = @q.result(distinct: true)
   end
-
+  
   def show
   end
 
@@ -19,7 +20,6 @@ class V1::EmployeesController < ApplicationController
       render 'edit'
     end
   end
-
 
   def new
     @employee = Employee.new
@@ -35,12 +35,10 @@ class V1::EmployeesController < ApplicationController
     end
   end
 
-
   def destroy
     @employee.destroy
     redirect_to v1_employees_path
   end
-
 
   private
   

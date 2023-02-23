@@ -12,7 +12,8 @@ class V1::RoomsController < ApplicationController
   end
     
   def index
-    @rooms = Room.all
+    @q = Room.ransack(params[:q])
+    @rooms = @q.result(distinct: true).order(price: :asc)
   end
 
   def show

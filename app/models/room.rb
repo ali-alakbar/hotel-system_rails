@@ -4,6 +4,10 @@
 
 class Room < ApplicationRecord
 
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w[room_number price]
+  end
+
   belongs_to :hotel
 
 

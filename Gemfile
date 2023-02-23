@@ -6,6 +6,9 @@ ruby "3.0.0"
 
 gem 'consul'
 
+# Ransack Library
+gem 'ransack'
+
 # PostgreSQL
 gem 'pg'
 
