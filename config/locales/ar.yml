@@ -1,0 +1,36 @@
+ar:
+  activerecord:
+    models:
+      hotel: "فندق"
+      employee: "موظف"
+      room: "غرفة"
+    attributes:
+      hotel:
+        name: "الاسم"
+        city: "المدينة"
+        address: "العنوان"
+        phone_number: "رقم الهاتف"
+      employee:
+        first_name: "الاسم الأول"
+        last_name: "الاسم الأخير"
+        email: "البريد الإلكتروني"
+        joining_date: "تاريخ الانضمام"
+        salary: "الراتب"
+        age: "العمر"
+        birthday: "تاريخ الميلاد"
+      room:
+        room_number: "رقم الغرفة"
+        floor_number: "رقم الطابق"
+        price: "السعر"
+        max_capacity: "السعة القصوى"
+        reserved: "محجوز"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "يجب ادخال القيمة"
+      email: "البريد الإلكتروني غير صالح"
+      taken: "تم استخدام القيمة مسبقاً"
+      greater_than: "يجب ادخال قيمة أكبر من %{count}"
+      smaller_than: "يجب ادخال قيمة أقل من %{count}"
+      only_float: "يجب ادخال رقم عشري صحيح"
+      only_integer: "يجب ادخال عدد صحيح"
