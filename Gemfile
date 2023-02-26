@@ -8,6 +8,8 @@ gem 'i18n'
 # Kaminari
 gem 'kaminari'
 
+gem 'enumerize'
+
 gem 'consul'
 
 gem 'translate_enum'

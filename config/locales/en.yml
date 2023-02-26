@@ -31,7 +31,7 @@ en:
         joining_date: "Joining Date"
         birthday: "Birthday"
         age: "Age"
-        status_list:
+        status:
           pending: "is pending"
           active: "is active"
           inactive: "is inactive"

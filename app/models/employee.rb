@@ -18,12 +18,11 @@
 
 class Employee < ApplicationRecord
   
-  include TranslateEnum
+  extend Enumerize
 
-  enum :status, { pending: 0, active: 1, inactive: 2 }
+  enumerize :status, in: { pending: 1 , active: 2, inactive: 3 }
+
   
-  translate_enum :status
-
   def self.ransackable_attributes(auth_object = nil)
     super & %w[email]
   end
