@@ -10,6 +10,7 @@ gem 'kaminari'
 
 gem 'consul'
 
+gem 'translate_enum'
 # Ransack Library
 gem 'ransack'
 

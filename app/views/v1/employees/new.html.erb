@@ -36,6 +36,10 @@
   <%= form.label "Hotel Name" %>
   <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a hotel" %>
   <br>
+
+  <%= form.label "Status" %>
+  <%= form.select :status, Employee.statuses.keys %>
+  <br>
   
   
 

@@ -4,21 +4,10 @@ class V1::EmployeesController < ApplicationController
     
   def index
     @q = Employee.ransack(params[:q])
-    @employees = @q.result(distinct: true).page(params[:page]).per(2)
+    @employees = @q.result(distinct: true).page(params[:page]).per(3)
   end
   
   def show
-  end
-
-  def edit
-  end
-
-  def update
-    if @employee.update(employees_params)
-      redirect_to employees_path
-    else
-      render 'edit'
-    end
   end
 
   def new
@@ -56,6 +45,6 @@ class V1::EmployeesController < ApplicationController
   end
 
   def employees_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :age, :joining_date, :birthday, :salary, :hotel_id)
+    params.require(:employee).permit(:first_name, :last_name, :email, :age, :joining_date, :birthday, :salary, :hotel_id, :status)
   end
 end

@@ -10,7 +10,6 @@ en:
         city: "City"
         address: "Address"
         phone_number: "Phone Number"
-      employee:
         first_name: "First Name"
         last_name: "Last Name"
         email: "Email"
@@ -18,12 +17,26 @@ en:
         salary: "Salary"
         age: "Age"
         birthday: "Birthday"
+        status: "Status"
       room:
         room_number: "Room Number"
         floor_number: "Floor Number"
         price: "Price"
         max_capacity: "Max Capacity"
         reserved: "Reserved"
+      employee:
+        first_name: "First name"
+        last_name: "Last name"
+        salary: "Salary"
+        joining_date: "Joining Date"
+        birthday: "Birthday"
+        age: "Age"
+        status_list:
+          pending: "is pending"
+          active: "is active"
+          inactive: "is inactive"
+
+
   errors:
     format: "%{attribute} %{message}"
     messages:

@@ -18,6 +18,11 @@ ar:
         salary: "الراتب"
         age: "العمر"
         birthday: "تاريخ الميلاد"
+        status_list:
+          pending: "قيد الانتظار"
+          active: "نشط"
+          inactive: "غير نشط"
+
       room:
         room_number: "رقم الغرفة"
         floor_number: "رقم الطابق"
