@@ -8,6 +8,8 @@ gem 'i18n'
 # Kaminari
 gem 'kaminari'
 
+gem "letter_opener", group: :development
+
 gem 'enumerize'
 
 gem 'consul'

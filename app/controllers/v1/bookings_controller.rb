@@ -22,6 +22,7 @@ class V1::BookingsController < ApplicationController
 
     if @booking.update(bookings_params)
       redirect_to v1_bookings_path
+      BookingMailer.booking_confirmation(@booking).deliver_now
     else
       render 'new'
     end
