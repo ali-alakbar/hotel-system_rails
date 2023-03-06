@@ -22,23 +22,25 @@ class Employee < ApplicationRecord
 
   enumerize :status, in: { pending: 1 , active: 2, inactive: 3 }
 
-  
-  def self.ransackable_attributes(auth_object = nil)
-    super & %w[email]
-  end
+
 
   belongs_to :hotel
+  belongs_to :role
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates :joining_date, presence: true
   validates :salary, presence: true, numericality: { only_float: true, greater_than: 0 }
 
-  validate :valid_age
-  validate :valid_birthday
+  validate :valid_age, :valid_birthday
   
 
   private
+
+  def role_name
+    "#{role.name_en} (#{role.name_ar})"
+  end
+
 
   def valid_age
     if age.present? && (age <= 20 )
@@ -52,27 +54,8 @@ class Employee < ApplicationRecord
     end
   end
 
-# == Schema Information
-#
-# Table name: employees
-#
-#  first_name         :string    
-#  last_name          :string    
-#  email              :string            
-#  joining_date       :date      
-#  birthday           :date      
-#  birthday           :date      
-#  age                :integer      
-#  salary             :float      
-#  hotel_id           :integer      
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w[email]
+  end
 
-# ==================
-
-
-class Employee < ApplicationRecord
-  belongs_to :hotel
-  validates :first_name, :last_name, :joining_date, :birthday, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-  validates :age, presence: true , numericality:   { only_integer: true, greater_than: 20 }
-  validates :salary, presence: true, numericality: { greater_than: 0 }
 end

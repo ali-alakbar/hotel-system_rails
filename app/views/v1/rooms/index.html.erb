@@ -4,12 +4,18 @@
 
 
   <%= search_form_for @q, url: v1_rooms_path do |f| %>
-    <%= f.label :room_number_cont, "Room by number" %>
+    <%= f.label :from_date_cont, "From date" %>
+    <%= f.date_field :from_date_cont %>
+    <br>
+    <%= f.label :to_date_cont, "To date" %>
+    <%= f.date_field :to_date_cont %>
+    <br>
+    <%= f.label :room_number_cont, "Room number" %>
     <%= f.search_field :room_number_cont %>
-    <div>
-      <%= sort_link @q, :price, "Price" %>
+    <div style= "margin: 1rem 0">
+      <%= sort_link @q, :id, "Sort by ID" %>
     </div>
-    <%= f.submit "Search" %>
+    <%= f.submit "Search" , style: "background-color: blue; border: none; cursor: pointer; color: white; padding: 5px 10px; border-radius: 5px;" %>
   <% end %>
 
 

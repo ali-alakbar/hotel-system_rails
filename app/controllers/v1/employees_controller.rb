@@ -5,6 +5,7 @@ class V1::EmployeesController < ApplicationController
   def index
     @q = Employee.ransack(params[:q])
     @employees = @q.result(distinct: true).page(params[:page]).per(3)
+    render json: { employees: @employees.as_json(include: :role, methods: :role_name) }
   end
   
   def show
@@ -18,7 +19,7 @@ class V1::EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employees_params)
     if @employee.save
-        redirect_to v1_employees_path
+      redirect_to v1_employees_path
     else
       render 'new'
     end
@@ -45,6 +46,6 @@ class V1::EmployeesController < ApplicationController
   end
 
   def employees_params
-    params.require(:employee).permit(:first_name, :last_name, :email, :age, :joining_date, :birthday, :salary, :hotel_id, :status)
+    params.require(:employee).permit(:first_name, :last_name, :email, :age, :joining_date, :birthday, :salary, :hotel_id, :status, :role_id)
   end
 end

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     resources :hotels
     resources :rooms 
     resources :employees
+    resources :roles
+    resources :bookings 
+    resources :guests
     get '/status', to: 'status#index'
   end
 

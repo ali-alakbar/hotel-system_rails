@@ -13,6 +13,7 @@
     <div><b>     Employee's birthday:                 </b>     <%= @employee.birthday       %>         </div>
     <div><b>     Employee's Salary:                   </b>     <%= @employee.salary         %>         </div>
     <div><b>     Employee belongs to hotel:           </b>     <%= @employee.hotel_id       %>         </div>
+    <div><b>     Employee's Role:                     </b>     <%= @employee.role.name_en   %>         </div>
     <div><b>     Employee status:                     </b>     <%= @employee.status         %>         </div>
     <%= button_to "Delete", v1_employee_path(@employee.id), method: :delete %>
   </div>

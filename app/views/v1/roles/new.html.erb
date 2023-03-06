@@ -1,0 +1,24 @@
+
+<div data-controller="salary" class="new_role_page">
+  <div class="intro" style = "text-align: center;">
+      <h1>New role</h1>
+  </div>
+  
+  <%= form_with(model: @role, local: true, url: v1_roles_path) do |form| %>
+    <%= form.label "English name" %>
+    <%= form.text_field :name_en %>  
+    <br>
+    <%= form.label "Arabic name" %>
+    <%= form.text_field :name_ar %>  
+    <br>
+    <%= form.label "hotel" %>
+    <%= form.collection_select :hotel_id, Hotel.all, :id, :name, prompt: "Select a hotel" %>
+    <br>
+    <br>
+    <br>
+    <%= form.submit %>
+  <% end %>
+    <br>
+    <br>
+    <%= link_to "Back", v1_roles_path %>
+</div>

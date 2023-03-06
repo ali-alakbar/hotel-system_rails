@@ -15,7 +15,6 @@ class V1::HotelsController < ApplicationController
     @hotel = Hotel.new
   end
 
-
   def create
     @hotel = Hotel.create(hotels_params)
     if @hotel.save
@@ -26,16 +25,16 @@ class V1::HotelsController < ApplicationController
   end
 
   def destroy
-    puts "------"
-    puts "------"
-    puts "------"
     @hotel.destroy
     redirect_to v1_hotels_path
   end
 
-
   private
   
+  def role_name
+    "#{role.name_en} (#{role.name_ar})"
+  end
+
   def find_hotel_id
     @hotel = Hotel.find(params[:id])
   end

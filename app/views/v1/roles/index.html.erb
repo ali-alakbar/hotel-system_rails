@@ -1,0 +1,62 @@
+<div class="roles">
+
+  <h1>All roles</h1>
+
+
+  <%= search_form_for @q, url: v1_roles_path do |f| %>
+    <%= f.label :name_en_cont, "Search by Role" %>
+    <%= f.search_field :name_en_cont %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+  <br>
+  <%= paginate @roles%>
+  <br>
+  Total roles: <%= @roles.total_count %>
+
+
+  <% if @roles.empty? %>
+    <p>No roles found</p>
+  <% else %>
+    <div  style= "
+              display: flex;
+              flex-wrap: wrap;
+              gap: 2rem;
+              width: 60%;
+            ">
+
+      <% @roles.each do |item| %>
+      <div class="roles-list" style="
+                        margin:1rem 0; 
+                        margin: 1rem 0;
+                        width: fit-content;
+                        border: solid 1px black;
+                        padding: 2rem;
+                        display: grid;
+                        gap: 1rem;
+                        "
+                        >
+
+            <div>
+                Role Name: <b> <%= item.name_en%> (<%= item.name_ar%>)  </b> 
+                <br>
+            </div>
+
+
+            <div style="display: flex; gap:1rem;" class="links">
+                <%= link_to "Show", v1_role_path(item) %>
+                <%= button_to "Delete", v1_role_path(item), method: :delete %>
+            </div>
+
+            
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= link_to "Create a New role", new_v1_role_path %>
+  <hr>
+  <br>
+  <%= link_to "Back to Hotel Page", v1_hotels_path %>
+
+  
+</div>

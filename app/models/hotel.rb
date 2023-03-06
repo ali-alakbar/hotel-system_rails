@@ -15,10 +15,6 @@
 class Hotel < ApplicationRecord
   
 
-  def self.ransackable_attributes(auth_object = nil)
-    super & %w[name]
-  end
-  
   acts_as_api
 
   api_accessible :details do |t|
@@ -35,5 +31,12 @@ class Hotel < ApplicationRecord
   validates :name, :city, :address, presence: true
   validates :phone_number, presence: true, numericality: { only_integer: true }, length: { in: 6...12 }
 
+
+  private
+
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w[name]
+  end
+  
 
 end
