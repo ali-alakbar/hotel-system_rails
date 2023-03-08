@@ -40,7 +40,7 @@ class V1::RoomsController < ApplicationController
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
-    end
+    end 
   end
   
   private

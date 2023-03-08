@@ -5,8 +5,11 @@ class V1::HotelsController < ApplicationController
   
   def index
     hotels = Hotel.all
-    render_success(message: :data_found, data: hotels)
-    render_empty(root: :hotels, message: 'No hotels found') if hotels.nil?
+    if hotel.present?
+      render_success(message: :data_found, data: hotels)
+    else
+      render_empty(root: :hotels, message: 'No hotels found')
+    end
   end
 
   def show
