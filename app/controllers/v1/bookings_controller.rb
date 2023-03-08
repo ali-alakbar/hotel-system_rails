@@ -6,19 +6,19 @@ class V1::BookingsController < ApplicationController
   def index
     bookings = Booking.all
     if bookings.present?
-      render_success(message: "Data found", data: bookings)
+      render_success(message: :data_found, data: bookings)
     else
-      render_empty(root: 'bookings', message: 'No bookings found')
+      render_empty(root: :bookings, message: 'No bookings found')
     end
   end
 
   def show
-    render_success(message: "Data found", data: @booking)
+    render_success(message: :data_found, data: @booking)
   end
 
   def update
     if @booking.update(bookings_params)
-      render_success(message: "Data found", data: @booking)
+      render_success(message: :data_found, data: @booking)
       BookingMailer.booking_confirmation(@booking).deliver_now
     else
       render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
@@ -28,7 +28,7 @@ class V1::BookingsController < ApplicationController
   def create
     @booking = Booking.create(bookings_params)
     if @booking.save
-      render_success(message: "Data created", data: @booking)
+      render_success(message: :data_created, data: @booking)
     else
       render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
     end
@@ -37,7 +37,7 @@ class V1::BookingsController < ApplicationController
   def destroy
     @booking.destroy
     if @booking.destroy
-      render_success(message: 'Data deleted')
+      render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
     end

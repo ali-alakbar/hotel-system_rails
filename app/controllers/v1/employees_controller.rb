@@ -6,21 +6,21 @@ class V1::EmployeesController < ApplicationController
   def index
     employees = Employee.all
     if employees.present?
-      render_success(message: "Data found", data: employees)
+      render_success(message: :data_found, data: employees)
     else
-      render_empty(root: 'employees', message: 'No employees found')
+      render_empty(root: :employees, message: 'No employees found')
     end
   end
   
   def show
-    render_success(message: "Data found", data: @employee)
+    render_success(message: :data_found, data: @employee)
   end
 
 
   def create
     @employee = Employee.new(employees_params)
     if @employee.save
-      render_created(message: "Data created", data: @employee)
+      render_created(message: :data_created, data: @employee)
     else
       render_unprocessable_entity(message: @employee.errors.full_messages.join(', '))
     end
@@ -28,7 +28,7 @@ class V1::EmployeesController < ApplicationController
 
   def destroy
     if @employee.destroy
-      render_success(message: 'Data deleted')
+      render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
     end

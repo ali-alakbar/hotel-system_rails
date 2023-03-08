@@ -16,20 +16,20 @@ class V1::RoomsController < ApplicationController
     rooms = Room.all
     rooms = filter_rooms_by_date(@from_date, @to_date).order(price: :asc) if @to_date != 1.week.from_now.strftime('%Y-%m-%d')
     if rooms.present?
-      render_success(message: "Data found", data: rooms)
+      render_success(message: :data_found, data: rooms)
     else
-      render_empty(root: 'rooms', message: 'No rooms found')
+      render_empty(root: :rooms, message: :no_record_found)
     end
   end
 
   def show
-    render_success(message: "Data found", data: @room)
+    render_success(message: :data_found, data: @room)
   end
   
   def create
     @room = Room.new(rooms_params)
     if @room.save
-      render_created(message: "Data created", data: @room)
+      render_created(message: :data_created, data: @room)
     else
       render_unprocessable_entity(message: @room.errors.full_messages.join(', '))
     end
@@ -37,7 +37,7 @@ class V1::RoomsController < ApplicationController
 
   def destroy
     if @room.destroy
-      render_success(message: 'Data deleted')
+      render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
     end

@@ -5,18 +5,21 @@ class V1::GuestsController < ApplicationController
   
   def index
     guests = Guest.all
-    render_success(message: "Data found", data: guests)
-    render_empty(root: 'guests', message: 'No guests found') if guests.nil?
+    if guests.present?
+      render_success(message: :data_found, data: guests)
+    else
+      render_empty(root: :guests, message: :no_record_found) 
+    end
   end
 
   def show
-    render_success(message: "Data found", data: @guest)
+    render_success(message: :data_found, data: @guest)
   end
 
   def create
     @guest = Guest.create(guests_params)
     if @guest.save
-      render_created(message: "Data created", data: @guest)
+      render_created(message: :data_created, data: @guest)
     else
       render_unprocessable_entity(message: @guest.errors.full_messages.join(', '))
     end
@@ -24,7 +27,7 @@ class V1::GuestsController < ApplicationController
 
   def destroy
     if @guest.destroy
-      render_success(message: 'Data deleted')
+      render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
     end
