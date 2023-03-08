@@ -16,6 +16,7 @@ class Booking < ApplicationRecord
   
   has_many :bookings_guests, class_name: 'BookingGuest'
   has_many :guests, through: :bookings_guests
+  
   belongs_to :holder, class_name: "Guest"
 
   belongs_to :room
@@ -25,6 +26,7 @@ class Booking < ApplicationRecord
   validates :holder_id, presence: true, uniqueness: true, length: { maximum: 10, message: "Length should not be more than 10" }
 
   validate :valid_check_date
+  validate :room_available, on: :create
 
   extend Enumerize
   enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
@@ -33,17 +35,18 @@ class Booking < ApplicationRecord
 
   private
 
-  def update_room_reserved_status
-    if self.status == 2
-      self.room.reserved= true
-    else
-      self.room.reserved= false
+  def room_available
+    if Booking.where(room_id: room_id, status: 2).exists?
+      errors.add(:room, "is not available for booking")
     end
   end
 
-  def check_reserved_room
-    if self.status == 2
-      
+
+  def update_room_reserved_status
+    if Booking.where(room_id: room_id, status: 2)
+      self.room.reserved= true
+    else
+      self.room.reserved= false
     end
   end
 

@@ -18,17 +18,17 @@ class V1::BookingsController < ApplicationController
 
   def update
     if @booking.update(bookings_params)
-      render_success(message: :data_found, data: @booking)
+      render_created(message: :data_updated, data: @booking)
       BookingMailer.booking_confirmation(@booking).deliver_now
     else
       render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
-    end
+    end  
   end
   
-  def create
+  def create  
     @booking = Booking.create(bookings_params)
     if @booking.save
-      render_success(message: :data_created, data: @booking)
+      render_created(message: :data_created, data: @booking)
     else
       render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
     end
@@ -51,10 +51,6 @@ class V1::BookingsController < ApplicationController
 
   def bookings_params
     params.require(:booking).permit(:room_id, :employee_id, :check_in_date, :check_out_date, :holder_id, :status)
-  end
-
-  def return_400_error(message)
-    render json: { error: message }, status: :bad_request
   end
 
 end
