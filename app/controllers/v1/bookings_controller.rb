@@ -1,50 +1,51 @@
 
 class V1::BookingsController < ApplicationController
   
-  before_action :find_booking_id, only: %i[show destroy update edit]   
+  before_action :find_booking, only: %i[show destroy update edit]   
   
   def index
-    @bookings = Booking.all
+    bookings = Booking.all
+    if bookings.present?
+      render_success(message: "Data found", data: bookings)
+    else
+      render_empty(root: 'bookings', message: 'No bookings found')
+    end
   end
 
   def show
-  end
-  
-  def new
-    @booking = Booking.new
-  end
-
-  def edit
-    
+    render_success(message: "Data found", data: @booking)
   end
 
   def update
-
     if @booking.update(bookings_params)
-      redirect_to v1_bookings_path
+      render_success(message: "Data found", data: @booking)
       BookingMailer.booking_confirmation(@booking).deliver_now
     else
-      render 'new'
+      render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
     end
   end
   
   def create
     @booking = Booking.create(bookings_params)
     if @booking.save
-      redirect_to v1_bookings_path
+      render_success(message: "Data created", data: @booking)
     else
-      render 'new'
+      render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
     end
   end
 
   def destroy
     @booking.destroy
-    redirect_to v1_bookings_path
+    if @booking.destroy
+      render_success(message: 'Data deleted')
+    else
+      render_unprocessable_entity(message: 'Data could not be deleted')
+    end
   end
 
   private
   
-  def find_booking_id
+  def find_booking
     @booking = Booking.find(params[:id])
   end
 

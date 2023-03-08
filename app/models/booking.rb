@@ -34,10 +34,16 @@ class Booking < ApplicationRecord
   private
 
   def update_room_reserved_status
-    if self.status == 1
+    if self.status == 2
       self.room.reserved= true
     else
       self.room.reserved= false
+    end
+  end
+
+  def check_reserved_room
+    if self.status == 2
+      
     end
   end
 

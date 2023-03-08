@@ -14,13 +14,12 @@
 class Room < ApplicationRecord
 
   belongs_to :hotel
-
+  has_many :bookings, dependent: :destroy
 
   validates :room_number, presence: true, uniqueness: true
   validates :floor_number, presence: true
   validates :price, presence: true, numericality: { only_float: true, greater_than: 3 }
   validates :max_capacity, presence: true, numericality: { only_integer: true, smaller_than: 7 }
-
 
   private
 

@@ -1,37 +1,38 @@
 
 class V1::GuestsController < ApplicationController
   
-  before_action :find_guest_id, only: %i[show destroy]   
+  before_action :find_guest, only: %i[show destroy]   
   
   def index
-    @guests = Guest.all
+    guests = Guest.all
+    render_success(message: "Data found", data: guests)
+    render_empty(root: 'guests', message: 'No guests found') if guests.nil?
   end
 
   def show
+    render_success(message: "Data found", data: @guest)
   end
-  
-  def new
-    @guest = Guest.new
-  end
-  
+
   def create
     @guest = Guest.create(guests_params)
     if @guest.save
-      redirect_to v1_guests_path
+      render_created(message: "Data created", data: @guest)
     else
-      puts @guest.errors.full_messages
-      render 'new'
+      render_unprocessable_entity(message: @guest.errors.full_messages.join(', '))
     end
   end
 
   def destroy
-    @guest.destroy
-    redirect_to v1_guests_path
+    if @guest.destroy
+      render_success(message: 'Data deleted')
+    else
+      render_unprocessable_entity(message: 'Data could not be deleted')
+    end
   end
 
   private
   
-  def find_guest_id
+  def find_guest
     @guest = Guest.find(params[:id])
   end
 

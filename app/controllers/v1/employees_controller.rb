@@ -1,39 +1,43 @@
 
 class V1::EmployeesController < ApplicationController
-  before_action :find_employee_id, only: %i[show destroy]   
-    
+
+  before_action :find_employee, only: [:show, :destroy]
+
   def index
-    @q = Employee.ransack(params[:q])
-    @employees = @q.result(distinct: true).page(params[:page]).per(3)
-    render json: { employees: @employees.as_json(include: :role, methods: :role_name) }
+    employees = Employee.all
+    if employees.present?
+      render_success(message: "Data found", data: employees)
+    else
+      render_empty(root: 'employees', message: 'No employees found')
+    end
   end
   
   def show
-  end
-
-  def new
-    @employee = Employee.new
+    render_success(message: "Data found", data: @employee)
   end
 
 
   def create
     @employee = Employee.new(employees_params)
     if @employee.save
-      redirect_to v1_employees_path
+      render_created(message: "Data created", data: @employee)
     else
-      render 'new'
+      render_unprocessable_entity(message: @employee.errors.full_messages.join(', '))
     end
   end
 
   def destroy
-    @employee.destroy
-    redirect_to v1_employees_path
+    if @employee.destroy
+      render_success(message: 'Data deleted')
+    else
+      render_unprocessable_entity(message: 'Data could not be deleted')
+    end
   end
 
   private
-  
+
   def find_employee
-    @employee = Employee.find(params[:id])
+    @employee ||= Employee.find(params[:id])
   end
 
   def check_errors

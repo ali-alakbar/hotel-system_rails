@@ -1,32 +1,27 @@
 
 class V1::HotelsController < ApplicationController
   
-  before_action :find_hotel_id, only: %i[show destroy]   
+  before_action :find_hotel, only: %i[show destroy]   
   
   def index
-    @q = Hotel.ransack(params[:q])
-    @hotels = @q.result(distinct: true).page(params[:page]).per(5)
+    hotels = Hotel.all
+    render_success(message: "Data found", data: hotels)
+    render_empty(root: 'hotels', message: 'No hotels found') if hotels.nil?
   end
 
   def show
+    render_success(message: "Data found", data: @hotel)
   end
   
-  def new
-    @hotel = Hotel.new
-  end
-
   def create
     @hotel = Hotel.create(hotels_params)
-    if @hotel.save
-      redirect_to v1_hotels_path
-    else
-      render 'new'
-    end
+    render_created(message: "Data created", data: @hotel)
+    render_unprocessable_entity(message: @hotel.errors.full_messages.join(', ')) if @hotel.save == false
   end
 
   def destroy
-    @hotel.destroy
-    redirect_to v1_hotels_path
+    render_success(message: 'Data deleted')
+    render_unprocessable_entity(message: 'Data could not be deleted') if @hotel.destroy == false
   end
 
   private
@@ -35,8 +30,8 @@ class V1::HotelsController < ApplicationController
     "#{role.name_en} (#{role.name_ar})"
   end
 
-  def find_hotel_id
-    @hotel = Hotel.find(params[:id])
+  def find_hotel
+    @hotel ||= Hotel.find(params[:id])
   end
 
   def hotels_params

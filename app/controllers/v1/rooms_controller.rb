@@ -1,6 +1,6 @@
 class V1::RoomsController < ApplicationController
   
-  before_action :find_room_id, only: %i[show destroy]   
+  before_action :find_room, only: %i[show destroy]   
   before_action :find_date_params, only: [:index]
 
   after_action do |room|
@@ -13,30 +13,34 @@ class V1::RoomsController < ApplicationController
   end
     
   def index
-    @q = Room.ransack(params[:q])
-    @rooms = @q.result(distinct: true).order(price: :asc)
-    @rooms = filter_rooms_by_date(@from_date, @to_date).order(price: :asc) if @to_date != 1.week.from_now.strftime('%Y-%m-%d')
+    rooms = Room.all
+    rooms = filter_rooms_by_date(@from_date, @to_date).order(price: :asc) if @to_date != 1.week.from_now.strftime('%Y-%m-%d')
+    if rooms.present?
+      render_success(message: "Data found", data: rooms)
+    else
+      render_empty(root: 'rooms', message: 'No rooms found')
+    end
   end
 
   def show
-  end
-
-  def new
-    @room = Room.new
+    render_success(message: "Data found", data: @room)
   end
   
   def create
     @room = Room.new(rooms_params)
     if @room.save
-      redirect_to v1_rooms_path
+      render_created(message: "Data created", data: @room)
     else
-      render 'new'
+      render_unprocessable_entity(message: @room.errors.full_messages.join(', '))
     end
   end
 
   def destroy
-    @room.destroy
-    redirect_to v1_rooms_path
+    if @room.destroy
+      render_success(message: 'Data deleted')
+    else
+      render_unprocessable_entity(message: 'Data could not be deleted')
+    end
   end
   
   private
@@ -59,8 +63,8 @@ class V1::RoomsController < ApplicationController
     end
   end
   
-  def find_room_id
-    @room = Room.find(params[:id])
+  def find_room
+    @room ||= Room.find(params[:id])
   end
   
   def rooms_params

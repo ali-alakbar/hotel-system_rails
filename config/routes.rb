@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :bookings 
     resources :guests
     get '/status', to: 'status#index'
-  end
+  end  
 
 
 end

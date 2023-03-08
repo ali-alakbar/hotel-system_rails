@@ -1,39 +1,42 @@
 class V1::RolesController < ApplicationController
   
-  before_action :find_role_id, only: %i[show destroy]   
+  before_action :find_role, only: %i[show destroy]   
   
   def index
-    @q = Role.ransack(params[:q])
-    @roles = @q.result(distinct: true).page(params[:page]).per(5)
+    @roles = Role.all 
+    if @roles.present?
+      render_success(message: "Data found", data: @roles)
+    else
+      render_empty(root: 'roles', message: 'No roles found')
+    end
   end
 
   def show
+    render_success(message: "Data found", data: @role)
   end
   
-  def new
-    @role = Role.new
-  end
-
-
   def create
     @role = Role.create(roles_params)
     if @role.save
-      redirect_to v1_roles_path
+      render_created(message: "Data created", data: @role)
     else
-      render 'new'
+      render_unprocessable_entity(message: @role.errors.full_messages.join(', '))
     end
   end
 
   def destroy
-    @role.destroy
-    redirect_to v1_roles_path
+    if @role.destroy
+      render_success(message: 'Data deleted')
+    else
+      render_unprocessable_entity(message: 'Data could not be deleted')
+    end
   end
 
 
   private
 
-  def find_role_id
-    @role = Role.find(params[:id])
+  def find_role
+    @role ||= Role.find(params[:id])
   end
 
   def roles_params
