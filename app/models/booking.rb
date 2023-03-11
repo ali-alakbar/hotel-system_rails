@@ -33,21 +33,18 @@ class Booking < ApplicationRecord
 
   after_update :update_room_reserved_status
 
+  delegate :reserved, to: :room, prefix: true
+
+  validates :room_id, presence: true, uniqueness: true
+
   private
 
-  def room_available
-    if Booking.where(room_id: room_id, status: 2).exists?
-      errors.add(:room, "is not available for booking")
-    end
-  end
-
-
   def update_room_reserved_status
-    if Booking.where(room_id: room_id, status: 2)
-      self.room.reserved= true
-    else
-      self.room.reserved= false
-    end
+    # if Booking.confirmed(room_id)
+    #   self.room.reserved= true
+    # else
+    #   self.room.reserved= false
+    # end
   end
 
   def valid_check_date
@@ -55,6 +52,4 @@ class Booking < ApplicationRecord
       errors.add(:Date, "is invalid.")
     end
   end
-
-
 end

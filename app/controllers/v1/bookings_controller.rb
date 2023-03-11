@@ -1,7 +1,7 @@
 
 class V1::BookingsController < ApplicationController
   
-  before_action :find_booking, only: %i[show destroy update edit]   
+  # before_action :find_booking, only: %i[show destroy update edit]   
   
   def index
     bookings = Booking.all
