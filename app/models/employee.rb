@@ -26,10 +26,6 @@ class Employee < ApplicationRecord
 
   belongs_to :hotel
   belongs_to :role
-  # Maybe using self join association here, between managers employees and subordinates employees
-
-  # has_many :subordinates, class_name: "Employee", foreign_key: "managers_id"
-  # belongs_to  :mangers, class_name: "Employee"
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
