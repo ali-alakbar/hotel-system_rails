@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi, <%= @employee.first_name %> <%= @employee.last_name %> </h1>
+    <p>Congratulations! You have been assigned as a new employee at <%= @employee.hotel.name %> hotel.</p>
+    <p>Your joining date is on <%= @employee.joining_date %></p>
+    <p>Your email address is <%= @employee.email %></p>
+    <p>Your current status is <%= @employee.status %></p>
+    <p>Thank you for choosing to join our team.</p>
+    <p>Best regards,</p>
+    <p><%= @employee.hotel.name %> Team</p>
+
+  </body>
+</html>

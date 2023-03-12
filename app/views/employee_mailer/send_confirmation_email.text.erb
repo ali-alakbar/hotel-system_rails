@@ -1,0 +1,11 @@
+Hi, <%= @employee.first_name %> <%= @employee.last_name %>
+
+Congratulations! You have been assigned as a new employee at <%= @employee.hotel.name %> hotel.
+Your joining date is on <%= @employee.joining_date %>
+Your email address is <%= @employee.email %>
+Your current status is <%= @employee.status %>
+
+Thank you for choosing to join our team.
+
+Best regards,
+<%= @employee.hotel.name %> Team
