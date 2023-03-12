@@ -38,6 +38,7 @@ class Employee < ApplicationRecord
 
   validate :valid_age, :valid_birthday
   
+  after_create :send_welcome_email
 
   private
 
@@ -45,6 +46,9 @@ class Employee < ApplicationRecord
     "#{role.name_en} (#{role.name_ar})"
   end
 
+  def send_welcome_email
+    EmployeeMailer.send_notofication_email(self).deliver_now
+  end
 
   def valid_age
     if age.present? && (age <= 20 )
