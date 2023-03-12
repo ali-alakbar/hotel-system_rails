@@ -14,7 +14,6 @@ class V1::RoomsController < ApplicationController
     
   def index
     rooms = Room.all
-    rooms = filter_rooms_by_date(@from_date, @to_date).order(price: :asc) if @to_date != 1.week.from_now.strftime('%Y-%m-%d')
     if rooms.present?
       render_success(message: :data_found, data: rooms)
     else
@@ -45,24 +44,6 @@ class V1::RoomsController < ApplicationController
   end
   
   private
-
-  def filter_rooms_by_date(from_date, to_date)
-    @q.result(distinct: true).where(id: Booking.where('check_in_date < ? AND check_out_date > ?', to_date, from_date).select(:room_id))
-  end
-
-  def find_date_params
-    if params[:q].present? && params[:q][:from_date_cont].present?
-      @from_date = params[:q][:from_date_cont]
-    else
-      @from_date = Date.today.strftime('%Y-%m-%d')
-    end
-
-    if params[:q].present? && params[:q][:to_date_cont].present?
-      @to_date = params[:q][:to_date_cont]
-    else
-      @to_date = 1.week.from_now.strftime('%Y-%m-%d')
-    end
-  end
   
   def find_room
     room ||= Room.find(params[:id])
