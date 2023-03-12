@@ -22,24 +22,30 @@ class Booking < ApplicationRecord
   belongs_to :room
   belongs_to :employee
 
-  validates :room_id, :holder_id, :employee_id, :check_in_date, :check_out_date, presence: true
-  validates :holder_id, presence: true, uniqueness: true, length: { maximum: 10, message: "Length should not be more than 10" }
+  validates :employee_id, :check_in_date, :check_out_date, presence: true
+  validates :holder_id, presence: true, length: { maximum: 10, message: "Length should not be more than 10" }
+  validates :room_id, presence: true, uniqueness: true
 
   validate :valid_check_date
-  validate :room_available, on: :create
 
   extend Enumerize
   enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
 
-  after_update :update_room_reserved_status
-
   delegate :reserved, to: :room, prefix: true
 
-  validates :room_id, presence: true, uniqueness: true
+  after_update :send_confirmation_email, if: -> { status == 2 }
+  after_update :send_notofication_email, if: -> { status == 1 || status == 3 }
+
+  attr_accessor :duration
+
+  def duration
+    (check_out_date - check_in_date).to_i
+  end
 
   private
 
-  def update_room_reserved_status
+
+  def self.reserved
     # if Booking.confirmed(room_id)
     #   self.room.reserved= true
     # else
@@ -47,9 +53,19 @@ class Booking < ApplicationRecord
     # end
   end
 
+  def send_notofication_email
+    BookingMailer.send_notofication_email(self).deliver_now
+  end
+  
+
+  def send_confirmation_email
+    BookingMailer.send_confirmation_email(self).deliver_now
+  end
+  
   def valid_check_date
     if (check_in_date.present? && check_out_date.present?) && ( check_in_date >= check_out_date )
       errors.add(:Date, "is invalid.")
     end
   end
+
 end

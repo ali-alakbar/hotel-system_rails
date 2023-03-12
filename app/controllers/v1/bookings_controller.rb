@@ -1,7 +1,7 @@
 
 class V1::BookingsController < ApplicationController
   
-  # before_action :find_booking, only: %i[show destroy update edit]   
+  before_action :find_booking, only: %i[show destroy update edit]   
   
   def index
     bookings = Booking.all
@@ -19,18 +19,17 @@ class V1::BookingsController < ApplicationController
   def update
     if @booking.update(bookings_params)
       render_created(message: :data_updated, data: @booking)
-      BookingMailer.booking_confirmation(@booking).deliver_now
     else
       render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
     end  
   end
   
   def create  
-    @booking = Booking.create(bookings_params)
-    if @booking.save
-      render_created(message: :data_created, data: @booking)
+    booking = Booking.create(bookings_params)
+    if booking.save
+      render_created(message: :data_created, data: booking)
     else
-      render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
+      render_unprocessable_entity(message: booking.errors.full_messages.join(', '))
     end
   end
 
