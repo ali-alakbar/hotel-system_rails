@@ -22,9 +22,8 @@ class Booking < ApplicationRecord
   belongs_to :room
   belongs_to :employee
 
-  validates :employee_id, :check_in_date, :check_out_date, presence: true
-  validates :holder_id, presence: true, length: { maximum: 10, message: "Length should not be more than 10" }
-  validates :room_id, presence: true, uniqueness: true
+  validates :check_in_date, :check_out_date, presence: true
+  validates :room_id, uniqueness: true
 
   validate :valid_check_date
 
