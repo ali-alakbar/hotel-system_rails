@@ -13,7 +13,11 @@ class V1::EmployeesController < ApplicationController
   end
   
   def show
-    render_success(message: :data_found, data: find_employee)
+    if find_employee.present?
+      render_success(message: :data_found, data: find_employee)
+    else
+      render_not_found(message: 'Employee not found')
+    end
   end
 
 
@@ -27,8 +31,7 @@ class V1::EmployeesController < ApplicationController
   end
 
   def destroy
-    employee = find_employee
-    if employee.destroy
+    if find_employee.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
@@ -38,18 +41,13 @@ class V1::EmployeesController < ApplicationController
   private
 
   def find_employee
-    employee ||= Employee.find(params[:id])
-  end
-
-  def check_errors
-    if response.status == 200
-      puts "==========="
-      Rails.logger.info("Request: #{request.method} - #{request.url}")
-      Rails.logger.info("Response: #{response.status}")
-      puts "==========="
+    begin
+      @find_employee ||= Employee.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @find_employee = nil
     end
   end
-
+  
   def employees_params
     params.require(:employee).permit(:first_name, :last_name, :email, :age, :joining_date, :birthday, :salary, :hotel_id, :status, :role_id)
   end

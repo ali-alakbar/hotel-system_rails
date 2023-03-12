@@ -13,7 +13,11 @@ class V1::BookingsController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: find_booking)
+    if find_booking.present?
+      render_success(message: :data_found, data: find_booking)
+    else
+      render_not_found(message: 'Booking not found')
+    end
   end
 
   def create  
@@ -26,17 +30,15 @@ class V1::BookingsController < ApplicationController
   end
 
   def update
-    booking = find_booking
-    if booking.update(bookings_params)
-      render_created(message: :data_updated, data: booking)
+    if find_booking.update(bookings_params)
+      render_created(message: :data_updated, data: find_booking)
     else
-      render_unprocessable_entity(message: booking.errors.full_messages.join(', '))
+      render_unprocessable_entity(message: find_booking.errors.full_messages.join(', '))
     end  
   end
 
   def destroy
-    booking = find_booking
-    if booking.destroy
+    if find_booking.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
@@ -46,7 +48,11 @@ class V1::BookingsController < ApplicationController
   private
   
   def find_booking
-    booking ||= Booking.find(params[:id])
+    begin
+      @find_booking ||= Booking.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @find_booking = nil
+    end
   end
 
   def bookings_params

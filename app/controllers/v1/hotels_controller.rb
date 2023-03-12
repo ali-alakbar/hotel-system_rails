@@ -5,7 +5,7 @@ class V1::HotelsController < ApplicationController
   
   def index
     hotels = Hotel.all
-    if hotel.present?
+    if hotels.present?
       render_success(message: :data_found, data: hotels)
     else
       render_empty(root: :hotels, message: 'No hotels found')
@@ -13,19 +13,28 @@ class V1::HotelsController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: find_hotel)
+    if find_hotel.present?
+      render_success(message: :data_found, data: find_hotel)
+    else
+      render_not_found(message: 'Hotel not found')
+    end
   end
   
   def create
     hotel = Hotel.create(hotels_params)
-    render_created(message: :data_created, data: hotel)
-    render_unprocessable_entity(message: hotel.errors.full_messages.join(', ')) if hotel.save == false
+    if hotel.save
+      render_created(message: :data_created, data: hotel)
+    else
+      render_unprocessable_entity(message: hotel.errors.full_messages.join(', '))
+    end
   end
 
   def destroy
-    hotel = find_hotel
-    render_success(message: :data_removed)
-    render_unprocessable_entity(message: 'Data could not be deleted') if hotel.destroy == false
+    if find_hotel.destroy
+      render_success(message: :data_removed)
+    else
+      render_unprocessable_entity(message: 'Data could not be deleted')
+    end
   end
 
   private
@@ -35,7 +44,11 @@ class V1::HotelsController < ApplicationController
   end
 
   def find_hotel
-    hotel ||= Hotel.find(params[:id])
+    begin
+      @find_hotel ||= Hotel.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @find_hotel = nil
+    end
   end
 
   def hotels_params

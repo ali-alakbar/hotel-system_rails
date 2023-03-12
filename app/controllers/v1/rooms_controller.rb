@@ -21,7 +21,11 @@ class V1::RoomsController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: find_room)
+    if find_room.present?
+      render_success(message: :data_found, data: find_room)
+    else
+      render_not_found(message: 'Room not found')
+    end
   end
   
   def create
@@ -29,13 +33,12 @@ class V1::RoomsController < ApplicationController
     if room.save
       render_created(message: :data_created, data: room)
     else
-      render_unprocessable_entity(message: room.errors.full_messages.join(', '))
+      render_unprocessable_entity(message: room.errors.full_messages.join(', '))  
     end
   end
 
   def destroy
-    room = find_room
-    if room.destroy
+    if find_room.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
@@ -45,7 +48,11 @@ class V1::RoomsController < ApplicationController
   private
   
   def find_room
-    room ||= Room.find(params[:id])
+    begin
+      @find_room ||= Room.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @find_room = nil
+    end
   end
   
   def rooms_params

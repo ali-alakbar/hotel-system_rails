@@ -12,7 +12,11 @@ class V1::RolesController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: find_role)
+    if find_role.present?
+      render_success(message: :data_found, data: find_role)
+    else
+      render_not_found(message: 'Role not found')
+    end
   end
   
   def create
@@ -25,19 +29,21 @@ class V1::RolesController < ApplicationController
   end
 
   def destroy
-    role = find_role
-    if role.destroy
+    if find_role.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
     end
   end
 
-
   private
 
   def find_role
-    role ||= Role.find_by(id: params[:id])
+    begin
+      @find_role ||= Role.find_by(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @find_role = nil
+    end
   end
 
   def roles_params

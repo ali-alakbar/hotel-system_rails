@@ -13,7 +13,11 @@ class V1::GuestsController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: find_guest)
+    if find_guest.present?
+      render_success(message: :data_found, data: find_guest)
+    else
+      render_not_found(message: 'Guest not found')
+    end
   end
 
   def create
@@ -26,8 +30,7 @@ class V1::GuestsController < ApplicationController
   end
 
   def destroy
-    guest = find_guest
-    if guest.destroy
+    if find_guest.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
@@ -37,7 +40,11 @@ class V1::GuestsController < ApplicationController
   private
   
   def find_guest
-    guest = Guest.find(params[:id])
+    begin
+      @find_guest = Guest.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @find_guest = nil
+    end
   end
 
   def guests_params
