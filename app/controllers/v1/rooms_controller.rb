@@ -1,7 +1,6 @@
 class V1::RoomsController < ApplicationController
   
   before_action :find_room, only: %i[show destroy]   
-  before_action :find_date_params, only: [:index]
 
   after_action do |room|
     puts "You have initilized the Room #{room}"
