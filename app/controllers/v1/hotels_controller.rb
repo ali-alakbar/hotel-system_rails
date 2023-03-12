@@ -13,18 +13,19 @@ class V1::HotelsController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: @hotel)
+    render_success(message: :data_found, data: find_hotel)
   end
   
   def create
-    @hotel = Hotel.create(hotels_params)
-    render_created(message: :data_created, data: @hotel)
-    render_unprocessable_entity(message: @hotel.errors.full_messages.join(', ')) if @hotel.save == false
+    hotel = Hotel.create(hotels_params)
+    render_created(message: :data_created, data: hotel)
+    render_unprocessable_entity(message: hotel.errors.full_messages.join(', ')) if hotel.save == false
   end
 
   def destroy
+    hotel = find_hotel
     render_success(message: :data_removed)
-    render_unprocessable_entity(message: 'Data could not be deleted') if @hotel.destroy == false
+    render_unprocessable_entity(message: 'Data could not be deleted') if hotel.destroy == false
   end
 
   private
@@ -34,7 +35,7 @@ class V1::HotelsController < ApplicationController
   end
 
   def find_hotel
-    @hotel ||= Hotel.find(params[:id])
+    hotel ||= Hotel.find(params[:id])
   end
 
   def hotels_params

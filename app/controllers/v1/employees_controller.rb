@@ -13,21 +13,22 @@ class V1::EmployeesController < ApplicationController
   end
   
   def show
-    render_success(message: :data_found, data: @employee)
+    render_success(message: :data_found, data: find_employee)
   end
 
 
   def create
-    @employee = Employee.new(employees_params)
-    if @employee.save
-      render_created(message: :data_created, data: @employee)
+    employee = Employee.new(employees_params)
+    if employee.save
+      render_created(message: :data_created, data: employee)
     else
-      render_unprocessable_entity(message: @employee.errors.full_messages.join(', '))
+      render_unprocessable_entity(message: employee.errors.full_messages.join(', '))
     end
   end
 
   def destroy
-    if @employee.destroy
+    employee = find_employee
+    if employee.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
@@ -37,7 +38,7 @@ class V1::EmployeesController < ApplicationController
   private
 
   def find_employee
-    @employee ||= Employee.find(params[:id])
+    employee ||= Employee.find(params[:id])
   end
 
   def check_errors

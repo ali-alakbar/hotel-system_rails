@@ -1,7 +1,7 @@
 
 class V1::BookingsController < ApplicationController
   
-  before_action :find_booking, only: %i[show destroy update edit]   
+  before_action :find_booking, only: %i[show destroy update]   
   
   def index
     bookings = Booking.all
@@ -13,17 +13,9 @@ class V1::BookingsController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: @booking)
+    render_success(message: :data_found, data: find_booking)
   end
 
-  def update
-    if @booking.update(bookings_params)
-      render_created(message: :data_updated, data: @booking)
-    else
-      render_unprocessable_entity(message: @booking.errors.full_messages.join(', '))
-    end  
-  end
-  
   def create  
     booking = Booking.create(bookings_params)
     if booking.save
@@ -33,9 +25,18 @@ class V1::BookingsController < ApplicationController
     end
   end
 
+  def update
+    booking = find_booking
+    if booking.update(bookings_params)
+      render_created(message: :data_updated, data: booking)
+    else
+      render_unprocessable_entity(message: booking.errors.full_messages.join(', '))
+    end  
+  end
+
   def destroy
-    @booking.destroy
-    if @booking.destroy
+    booking = find_booking
+    if booking.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
@@ -45,7 +46,7 @@ class V1::BookingsController < ApplicationController
   private
   
   def find_booking
-    @booking = Booking.find(params[:id])
+    booking ||= Booking.find(params[:id])
   end
 
   def bookings_params

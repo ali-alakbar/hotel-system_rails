@@ -13,20 +13,21 @@ class V1::GuestsController < ApplicationController
   end
 
   def show
-    render_success(message: :data_found, data: @guest)
+    render_success(message: :data_found, data: find_guest)
   end
 
   def create
-    @guest = Guest.create(guests_params)
-    if @guest.save
-      render_created(message: :data_created, data: @guest)
+    guest = Guest.create(guests_params)
+    if guest.save
+      render_created(message: :data_created, data: guest)
     else
-      render_unprocessable_entity(message: @guest.errors.full_messages.join(', '))
+      render_unprocessable_entity(message: guest.errors.full_messages.join(', '))
     end
   end
 
   def destroy
-    if @guest.destroy
+    guest = find_guest
+    if guest.destroy
       render_success(message: :data_removed)
     else
       render_unprocessable_entity(message: 'Data could not be deleted')
@@ -36,7 +37,7 @@ class V1::GuestsController < ApplicationController
   private
   
   def find_guest
-    @guest = Guest.find(params[:id])
+    guest = Guest.find(params[:id])
   end
 
   def guests_params
