@@ -16,8 +16,9 @@
 
 class Guest < ApplicationRecord
 
-  has_many :bookings_guests, class_name: 'BookingGuest'
-  has_many :bookings, through: :bookings_guests
+  has_many :bookings_guests, dependent:  :destroy
+  has_many :bookings, through: :bookings_guests, dependent:  :destroy
+  has_many :ggg, dependent:  :destroy, class_name: "BookingsGuest"
 
   validates :full_name_ar, :passport_number, :id_card_number, :birthday, :full_name_en, presence: true
   validates :full_name_ar, :full_name_en, :id_card_number, length: { minimum: 6, message: "Should be more than six characters" }

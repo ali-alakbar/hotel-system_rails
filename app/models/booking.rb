@@ -14,8 +14,9 @@
 
 class Booking < ApplicationRecord
   
-  has_many :bookings_guests, class_name: 'BookingGuest'
-  has_many :guests, through: :bookings_guests
+  has_many :bookings_guests, dependent:  :destroy
+  has_many :ggg, dependent:  :destroy, class_name: "BookingsGuest"
+  has_many :guests, through: :bookings_guests, dependent:  :destroy
   
   belongs_to :holder, class_name: "Guest"
 
@@ -37,19 +38,16 @@ class Booking < ApplicationRecord
 
   attr_accessor :duration
 
+  after_create :save_bookings_guests
+
   def duration
     (check_out_date - check_in_date).to_i
   end
 
   private
 
-
-  def self.reserved
-    # if Booking.confirmed(room_id)
-    #   self.room.reserved= true
-    # else
-    #   self.room.reserved= false
-    # end
+  def save_bookings_guests
+    BookingsGuest.create(booking_id: id, guest_id: holder_id, check_in_date: check_in_date, check_out_date: check_out_date)
   end
 
   def send_notofication_email
@@ -68,7 +66,3 @@ class Booking < ApplicationRecord
   end
 
 end
-
-
-
-# 
