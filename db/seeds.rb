@@ -7,9 +7,9 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
   # Create Hotel
-  Hotel.create(name: "The Grand Hotel",  city: "New York", address: "123 Main St.", phone_number: 5555555555)
-  Hotel.create(name: "The Grand Hotel2", city: "New York", address: "123 Main St.", phone_number: 5555556666)
-  Hotel.create(name: "The Grand Hotel3", city: "New York", address: "123 Main St.", phone_number: 5555557777)
+  Hotel.create(name: "The Grand Hotel",  city: "New York", address: "123 Main St.", phone_number: "5555555555")
+  Hotel.create(name: "The Grand Hotel2", city: "New York", address: "123 Main St.", phone_number: "5555556666")
+  Hotel.create(name: "The Grand Hotel3", city: "New York", address: "123 Main St.", phone_number: "5555557777")
 
   # Create Rooms
   Room.create(floor_number: "1", room_number: "101", max_capacity: 2, price: 1000.00,  hotel_id: 1)
@@ -27,8 +27,8 @@
   Employee.create(first_name: "Jane", last_name: "Doe", email: "janedoe2@example.com", birthday: Date.new(1985, 2, 2), joining_date: Date.new(2010, 2, 2), salary: 6000.00, age: 37, hotel_id: 1, role_id: 2)
 
   # Create Guests
-  Guest.create(full_name_en: "John Smith", full_name_ar: "جون سميث", id_card_number: "12345678", passport_number: "ABCD1234", mobile_number: 1234567890, email: "johnsmith@example.com",  birthday: Date.new(1990, 1, 1))
-  Guest.create(full_name_en: "Ali Smith",  full_name_ar: "علي سميث", id_card_number: "87654321", passport_number: "DCBA4321", mobile_number: 1987654321, email: "janesmith2@example.com", birthday: Date.new(1995, 2, 2))
+  Guest.create(full_name_en: "John Smith", full_name_ar: "جون سميث", id_card_number: "12345678", passport_number: "ABCD1234", mobile_number: "1234567890", email: "johnsmith@example.com",  birthday: Date.new(1990, 1, 1))
+  Guest.create(full_name_en: "Ali Smith",  full_name_ar: "علي سميث", id_card_number: "87654321", passport_number: "DCBA4321", mobile_number: "1987654321", email: "janesmith2@example.com", birthday: Date.new(1995, 2, 2))
 
   # Create Bookings
   Booking.create(room_id: 1,  employee_id: 1, check_in_date: Date.new(2022, 1, 1), check_out_date: Date.new(2022, 1, 5), holder_id: 1, status: 2)

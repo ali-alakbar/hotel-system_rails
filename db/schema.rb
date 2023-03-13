@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
     t.string "full_name_ar"
     t.string "id_card_number"
     t.string "passport_number"
-    t.integer "mobile_number"
+    t.string "mobile_number"
     t.string "email"
     t.date "birthday"
     t.datetime "created_at", null: false
@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
     t.string "name"
     t.string "city"
     t.string "address"
-    t.integer "phone_number"
+    t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

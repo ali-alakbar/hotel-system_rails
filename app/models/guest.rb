@@ -21,11 +21,9 @@ class Guest < ApplicationRecord
   has_many :ggg, dependent:  :destroy, class_name: "BookingsGuest"
 
   validates :birthday, presence: true
-  validates :full_name_ar, :full_name_en, :id_card_number, presence: true, length: { minimum: 6, message: "Should be more than six characters" }
+  validates :full_name_ar, :full_name_en, :mobile_number, :passport_number, :id_card_number, presence: true, length: { minimum: 6, message: "Should be more than six characters" }
+  validates :mobile_number, :passport_number, :id_card_number, uniqueness: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-  validates :mobile_number, :passport_number, :id_card_number, uniqueness: true, presence: true
-
-  validate :valid_birthday, :valid_mobile_length
 
   private
 
@@ -34,11 +32,4 @@ class Guest < ApplicationRecord
       errors.add(:birthday, "is invalid")
     end
   end
-
-  def valid_mobile_length
-    if mobile_number.present? && ( mobile_number.size < 5 || mobile_number.size > 15 )
-      errors.add(:mobile_number, "is invalid")
-    end
-  end
-
 end

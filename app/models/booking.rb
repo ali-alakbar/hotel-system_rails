@@ -14,12 +14,15 @@
 
 class Booking < ApplicationRecord
   
+  attr_accessor :duration
+  
+  extend Enumerize
+  enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
+
   has_many :bookings_guests, dependent:  :destroy
   has_many :ggg, dependent:  :destroy, class_name: "BookingsGuest"
   has_many :guests, through: :bookings_guests, dependent:  :destroy
-  
   belongs_to :holder, class_name: "Guest"
-
   belongs_to :room
   belongs_to :employee
 
@@ -28,15 +31,10 @@ class Booking < ApplicationRecord
 
   validate :valid_check_date
 
-  extend Enumerize
-  enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
-
   delegate :reserved, to: :room, prefix: true
 
   after_update :send_confirmation_email, if: -> { status == 2 }
   after_update :send_notofication_email, if: -> { status == 1 || status == 3 }
-
-  attr_accessor :duration
 
   after_create :save_bookings_guests
 

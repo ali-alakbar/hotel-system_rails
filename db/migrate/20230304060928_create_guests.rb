@@ -5,7 +5,7 @@ class CreateGuests < ActiveRecord::Migration[7.0]
       t.string :full_name_ar
       t.string :id_card_number
       t.string :passport_number
-      t.integer :mobile_number
+      t.string :mobile_number
       t.string :email
       t.date :birthday
 
