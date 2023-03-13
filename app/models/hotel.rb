@@ -29,7 +29,7 @@ class Hotel < ApplicationRecord
 
 
   validates :name, :city, :address, presence: true
-  validates :phone_number, presence: true, numericality: { only_integer: true }, length: { in: 6...12 }
+  validates :phone_number, uniqueness: true, presence: true, numericality: { only_integer: true }, length: { in: 6...12 }
 
 
   private

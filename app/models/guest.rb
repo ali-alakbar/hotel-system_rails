@@ -20,10 +20,10 @@ class Guest < ApplicationRecord
   has_many :bookings, through: :bookings_guests, dependent:  :destroy
   has_many :ggg, dependent:  :destroy, class_name: "BookingsGuest"
 
-  validates :full_name_ar, :passport_number, :id_card_number, :birthday, :full_name_en, presence: true
-  validates :full_name_ar, :full_name_en, :id_card_number, length: { minimum: 6, message: "Should be more than six characters" }
+  validates :birthday, presence: true
+  validates :full_name_ar, :full_name_en, :id_card_number, presence: true, length: { minimum: 6, message: "Should be more than six characters" }
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-  validates :mobile_number, presence: true, numericality: { only_integer: true }
+  validates :mobile_number, :passport_number, :id_card_number, uniqueness: true, presence: true
 
   validate :valid_birthday, :valid_mobile_length
 
