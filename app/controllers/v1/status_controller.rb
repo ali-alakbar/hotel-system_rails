@@ -5,4 +5,5 @@ module V1
     def index
       render json: { status: 'OK' }
     end
+  end
 end

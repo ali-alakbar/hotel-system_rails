@@ -46,7 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
     t.date "birthday"
     t.date "joining_date"
     t.float "salary"
-    t.float "total"
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -62,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
     t.string "full_name_ar"
     t.string "id_card_number"
     t.string "passport_number"
-    t.string "mobile_number"
+    t.decimal "mobile_number", precision: 15
     t.string "email"
     t.date "birthday"
     t.datetime "created_at", null: false
@@ -73,7 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
     t.string "name"
     t.string "city"
     t.string "address"
-    t.string "phone_number"
+    t.decimal "phone_number", precision: 15
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -88,7 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.boolean "reserved"
+    t.boolean "reserved", default: false
     t.string "floor_number"
     t.string "room_number"
     t.integer "max_capacity"

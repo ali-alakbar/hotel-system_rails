@@ -45,15 +45,13 @@ module V1
     end
 
     def find_hotel
-      begin
-        @find_hotel ||= Hotel.find(params[:id])
+      @find_hotel ||= Hotel.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         @find_hotel = nil
-      end
     end
 
     def hotels_params
       params.require(:hotel).permit(:name, :city, :address, :phone_number)
     end
-
+  end
 end

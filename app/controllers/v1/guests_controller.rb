@@ -41,15 +41,13 @@ module V1
     private
 
     def find_guest
-      begin
-        @find_guest = Guest.find(params[:id])
+      @find_guest = Guest.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         @find_guest = nil
-      end
     end
 
     def guests_params
       params.require(:guest).permit(:full_name_ar, :full_name_en, :id_card_number, :passport_number, :mobile_number, :email, :birthday, :booking_id)
     end
-
+  end
 end

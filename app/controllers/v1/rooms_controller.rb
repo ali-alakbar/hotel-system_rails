@@ -2,7 +2,7 @@
 
 module V1
   class RoomsController < ApplicationController
-    before_action :find_room, only: %i[show destroy]   
+    before_action :find_room, only: %i[show destroy]
 
     def index
       rooms = Room.all
@@ -41,15 +41,13 @@ module V1
     private
 
     def find_room
-      begin
-        @find_room ||= Room.find(params[:id])
+      @find_room ||= Room.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         @find_room = nil
-      end
     end
 
     def rooms_params
       params.require(:room).permit(:floor_number, :room_number, :max_capacity, :price, :reserved, :hotel_id)
     end
-
+  end
 end

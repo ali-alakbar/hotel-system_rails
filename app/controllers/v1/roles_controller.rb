@@ -41,15 +41,13 @@ module V1
     private
 
     def find_role
-      begin
         @find_role ||= Role.find_by(params[:id])
       rescue ActiveRecord::RecordNotFound
         @find_role = nil
-      end
     end
 
     def roles_params
       params.require(:role).permit(:name_en, :name_ar, :hotel_id)
     end
-
+  end
 end

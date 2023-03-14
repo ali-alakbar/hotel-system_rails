@@ -52,11 +52,11 @@ module V1
       @find_booking ||= Booking.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         @find_booking = nil
-      end
     end
 
     def bookings_params
       params.require(:booking).permit(:room_id, :employee_id, :check_in_date, :check_out_date, :holder_id, :status)
     end
+  end
 
 end

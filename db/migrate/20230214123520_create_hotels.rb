@@ -6,7 +6,7 @@ class CreateHotels < ActiveRecord::Migration[7.0]
       t.string    :name
       t.string    :city
       t.string    :address
-      t.string   :phone_number
+      t.numeric   :phone_number, precision: 15, scale: 0
       t.timestamps
     end
   end

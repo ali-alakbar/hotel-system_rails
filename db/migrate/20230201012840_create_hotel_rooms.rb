@@ -3,7 +3,7 @@
 class CreateHotelRooms < ActiveRecord::Migration[7.0]
   def change
     create_table :hotel_rooms do |t|
-      t.boolean :reserved
+      t.boolean :reserved, default: false 
       t.string :floor_no
       t.string :room_no
       t.integer :max_capacity
