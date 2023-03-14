@@ -12,19 +12,28 @@
 # ==================
 
 class Hotel < ApplicationRecord
+  # ======================== MODULES INCLUSION ====================== #
   acts_as_api
+  # ======================== CONSTANTS ============================== #
+  # ======================== SCOPES ================================= #
+  # ======================== ENUMS ================================== #
+  # ======================== ASSOCIATIONS =========================== #
+  has_many :rooms,       dependent:  :destroy
+  has_many :employees,   dependent:  :destroy
 
+  # ======================== VALIDATIONS ============================ #
+  validates :name, :city, :address, presence: true
+  validates :phone_number, uniqueness: true, presence: true, numericality: { only_integer: true },
+                          length: { in: 6...12 }
+
+  # ======================== CALLBACKS ============================== #
+  # ======================== OTHERS ================================= #
   api_accessible :details do |t|
     t.add :name
     t.add :city
     t.add :address
     t.add :phone_number
   end
-
-  has_many :rooms,       dependent:  :destroy
-  has_many :employees,   dependent:  :destroy
-
-  validates :name, :city, :address, presence: true
-  validates :phone_number, uniqueness: true, presence: true, numericality: { only_integer: true },
-                          length: { in: 6...12 }
+  # ======================== CLASS METHODS ========================== #
+  # ======================== INSTANCE METHODS ======================= #
 end

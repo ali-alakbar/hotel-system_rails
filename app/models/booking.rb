@@ -14,11 +14,18 @@
 
 
 class Booking < ApplicationRecord
-  attr_accessor :duration
-  
+  # ======================== MODULES INCLUSION ====================== #
   extend Enumerize
+
+  # ======================== CONSTANTS ============================== #
+  # ======================== SCOPES ================================= #
+  # ======================== OTHERS ================================= #
+  attr_accessor :duration
+
+  ## ======================== ENUMS ========================  ##
   enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
 
+  ## ======================== ASSOCIATIONS ======================== ##
   has_many :bookings_guests, dependent:  :destroy
   has_many :ggg, dependent:  :destroy, class_name: 'BookingsGuest'
   has_many :guests, through: :bookings_guests, dependent:  :destroy
@@ -26,16 +33,14 @@ class Booking < ApplicationRecord
   belongs_to :room
   belongs_to :employee
 
+  ## ======================== VALIDATIONS ======================== ##
   validates :check_in_date, :check_out_date, presence: true
   validates :room_id, uniqueness: true
-
   validate :valid_check_date
 
-  delegate :reserved, to: :room, prefix: true
-
+  ## ========================- CALLBACKS ======================== ##
   after_update :send_confirmation_email, if: -> { status == 2 }
   after_update :send_notofication_email, if: -> { status == 1 || status == 3 }
-
   after_create :save_bookings_guests
 
   def duration
@@ -44,6 +49,8 @@ class Booking < ApplicationRecord
 
   private
 
+  # ======================== CLASS METHODS ========================== #
+  # ======================== INSTANCE METHODS ======================= #
   def save_bookings_guests
     BookingsGuest.create(booking_id: id, guest_id: holder_id, check_in_date: check_in_date, check_out_date: check_out_date)
   end

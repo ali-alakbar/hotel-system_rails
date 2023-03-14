@@ -17,27 +17,34 @@
 # ==================
 
 class Employee < ApplicationRecord
+  # ======================== MODULES INCLUSION ====================== #
   extend Enumerize
 
+  # ======================== CONSTANTS ============================== #
+  # ======================== SCOPES ================================= #
+  # ======================== ENUMS ================================== #
   enumerize :status, in: { pending: 1 , active: 2, inactive: 3 }
 
+  # ======================== ASSOCIATIONS =========================== #
   belongs_to :hotel
   belongs_to :role
 
+  # ======================== VALIDATIONS ============================ #
   validates :first_name, :last_name, presence: true
-
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-
   validates :joining_date, presence: true
-
   validates :salary, presence: true, numericality: { only_float: true, greater_than: 0 }
-
   validate :valid_age, :valid_birthday
   
+  # ======================== CALLBACKS ============================== #
   after_create :send_welcome_email
+  
+  # ======================== OTHERS ================================= #
+  
+  private  
 
-  private
-
+  # ======================== CLASS METHODS ========================== #
+  # ======================== INSTANCE METHODS ======================= #
   def role_name
     '#{role.name_en} (#{role.name_ar})'
   end
