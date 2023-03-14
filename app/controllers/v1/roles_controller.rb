@@ -51,6 +51,5 @@ module V1
     def roles_params
       params.require(:role).permit(:name_en, :name_ar, :hotel_id)
     end
-  end
 
 end

@@ -18,12 +18,14 @@ class Booking < ApplicationRecord
   extend Enumerize
 
   # ======================== CONSTANTS ============================== #
-  # ======================== SCOPES ================================= #
   # ======================== OTHERS ================================= #
   attr_accessor :duration
-
+  
   ## ======================== ENUMS ========================  ##
   enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
+  
+  # ======================== SCOPES ================================= #
+  scope :confirmed, -> { where(status: 2) }
 
   ## ======================== ASSOCIATIONS ======================== ##
   has_many :bookings_guests, dependent:  :destroy

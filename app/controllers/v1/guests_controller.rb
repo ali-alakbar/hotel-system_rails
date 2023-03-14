@@ -51,6 +51,5 @@ module V1
     def guests_params
       params.require(:guest).permit(:full_name_ar, :full_name_en, :id_card_number, :passport_number, :mobile_number, :email, :birthday, :booking_id)
     end
-  end
 
 end

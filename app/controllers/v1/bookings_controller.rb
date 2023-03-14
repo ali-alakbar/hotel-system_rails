@@ -58,6 +58,5 @@ module V1
     def bookings_params
       params.require(:booking).permit(:room_id, :employee_id, :check_in_date, :check_out_date, :holder_id, :status)
     end
-  end
 
 end

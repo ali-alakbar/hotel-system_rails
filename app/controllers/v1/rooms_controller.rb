@@ -51,6 +51,5 @@ module V1
     def rooms_params
       params.require(:room).permit(:floor_number, :room_number, :max_capacity, :price, :reserved, :hotel_id)
     end
-  end
 
 end

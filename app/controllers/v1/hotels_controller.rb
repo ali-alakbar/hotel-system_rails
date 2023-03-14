@@ -55,6 +55,5 @@ module V1
     def hotels_params
       params.require(:hotel).permit(:name, :city, :address, :phone_number)
     end
-  end
 
 end
