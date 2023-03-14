@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # == Schema Information == 
 #
@@ -21,13 +22,4 @@ class Room < ApplicationRecord
   validates :price, presence: true, numericality: { only_float: true, greater_than: 3 }
   validates :max_capacity, presence: true, numericality: { only_integer: true, smaller_than: 7 }
 
-  private
-
-  def self.ransackable_associations(auth_object = nil)
-    ["hotel"]
-  end
-
-  def self.ransackable_attributes(auth_object = nil)
-    ["from_date_cont", "to_date_cont", "room_number", "price"]
-  end
 end

@@ -1,18 +1,17 @@
-# == Schema Information == 
+# frozen_string_literal: true
+
+# == Schema Information ==
 #
 # Table name: hotel
 #
-#  name            :string    
-#  string          :string    
-#  address         :string            
+#  name            :string
+#  string          :string
+#  address         :string
 #  phone_number    :string
 
 # ==================
 
-
 class Hotel < ApplicationRecord
-  
-
   acts_as_api
 
   api_accessible :details do |t|
@@ -25,8 +24,7 @@ class Hotel < ApplicationRecord
   has_many :rooms,       dependent:  :destroy
   has_many :employees,   dependent:  :destroy
 
-
   validates :name, :city, :address, presence: true
-  validates :phone_number, uniqueness: true, presence: true, length: { in: 6...12 }
-
+  validates :phone_number, uniqueness: true, presence: true, numericality: { only_integer: true },
+                          length: { in: 6...12 }
 end

@@ -1,4 +1,7 @@
-module ResponseRenderer extend ActiveSupport::Concern
+# frozen_string_literal: true
+
+module ResponseRenderer 
+  extend ActiveSupport::Concern
 
   # Common method to render error response inside this module
   def render_error(message: I18n.t('errors.e_400'), status_code: 400)
@@ -19,7 +22,7 @@ module ResponseRenderer extend ActiveSupport::Concern
   def render_unprocessable_entity(message: nil)
     render_error message: message, status_code: 422
   end
-  
+
   # Handle 401 errors with custom JSON response
   def render_unauthorized(message: nil)
     render json: { success: false, error: message }, status: 401

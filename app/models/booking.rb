@@ -1,28 +1,28 @@
+# frozen_string_literal: true
 
-# == Schema Information == 
+# == Schema Information ==
 #
 # Table name: bookings
 #
-#  room_id            :integer    
-#  employee_id        :integer    
-#  check_in_date      :date      
-#  check_out_date     :date      
-#  holder_id          :string      
+#  room_id            :integer
+#  employee_id        :integer
+#  check_in_date      :date
+#  check_out_date     :date
+#  holder_id          :string
 #  status             :integer
 # ==================
 
 
 class Booking < ApplicationRecord
-  
   attr_accessor :duration
   
   extend Enumerize
   enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
 
   has_many :bookings_guests, dependent:  :destroy
-  has_many :ggg, dependent:  :destroy, class_name: "BookingsGuest"
+  has_many :ggg, dependent:  :destroy, class_name: 'BookingsGuest'
   has_many :guests, through: :bookings_guests, dependent:  :destroy
-  belongs_to :holder, class_name: "Guest"
+  belongs_to :holder, class_name: 'Guest'
   belongs_to :room
   belongs_to :employee
 
@@ -59,8 +59,7 @@ class Booking < ApplicationRecord
   
   def valid_check_date
     if (check_in_date.present? && check_out_date.present?) && ( check_in_date >= check_out_date )
-      errors.add(:Date, "is invalid.")
+      errors.add(:Date, 'is invalid.')
     end
   end
-
 end

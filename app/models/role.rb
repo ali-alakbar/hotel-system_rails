@@ -1,11 +1,17 @@
+# frozen_string_literal: true
+
+# == Schema Information ==
+#
+# Table name: hotel
+#
+#  name_ar            :string
+#  name_en            :string
+#  hotel_id           :integer
+
+# ==================
+
 class Role < ApplicationRecord
-  
   has_many :employees, dependent: :destroy
-
-
-  def self.ransackable_attributes(auth_object = nil)
-    super & %w[name_en]
-  end
-
   
+  validates :name_ar, :name_en, presence: true
 end

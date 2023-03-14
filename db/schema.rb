@@ -11,12 +11,15 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bookings", force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "employee_id", null: false
+    t.bigint "room_id", null: false
+    t.bigint "employee_id", null: false
     t.date "check_in_date"
     t.date "check_out_date"
-    t.integer "holder_id", null: false
+    t.bigint "holder_id", null: false
     t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
   end
 
   create_table "bookings_guests", force: :cascade do |t|
-    t.integer "booking_id", null: false
-    t.integer "guest_id", null: false
+    t.bigint "booking_id", null: false
+    t.bigint "guest_id", null: false
     t.date "check_in_date"
     t.date "check_out_date"
     t.datetime "created_at", null: false
@@ -47,9 +50,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "hotel_id"
+    t.bigint "hotel_id"
     t.integer "status"
-    t.integer "role_id", default: 1, null: false
+    t.bigint "role_id", default: 1, null: false
     t.index ["hotel_id"], name: "index_employees_on_hotel_id"
     t.index ["role_id"], name: "index_employees_on_role_id"
   end
@@ -78,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
   create_table "roles", force: :cascade do |t|
     t.string "name_ar"
     t.string "name_en"
-    t.integer "hotel_id", default: 0, null: false
+    t.bigint "hotel_id", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hotel_id"], name: "index_roles_on_hotel_id"
@@ -92,7 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_062332) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "hotel_id"
+    t.bigint "hotel_id"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 
