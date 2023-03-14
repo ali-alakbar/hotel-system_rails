@@ -25,8 +25,6 @@ class Booking < ApplicationRecord
   enumerize :status, in: { pending: 1 , confirmed: 2, canceled: 3 }
   
   # ======================== SCOPES ================================= #
-  scope :confirmed, -> { where(status: 2) }
-
   ## ======================== ASSOCIATIONS ======================== ##
   has_many :bookings_guests, dependent:  :destroy
   has_many :ggg, dependent:  :destroy, class_name: 'BookingsGuest'
