@@ -5,7 +5,7 @@
   <body>
     <h1>Hi, <%= @booking.holder.full_name_en%> - <%= @booking.holder.full_name_ar %> </h1>
     <p>Your room "<%= @booking.room.room_number %>" has been <strong><%= @booking.status %></strong> successfully.</p>
-    <p>The booking will be for <b><%= @booking.duration %> days.</b></p>
+    <p>The booking will be for <b><%= @booking.setting_duration_value %> days.</b></p>
     <p>Check-in date: <%= @booking.check_in_date %></p>
     <p>Check-out date: <%= @booking.check_out_date %></p>
 

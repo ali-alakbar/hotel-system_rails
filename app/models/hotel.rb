@@ -20,12 +20,10 @@ class Hotel < ApplicationRecord
   # ======================== ASSOCIATIONS =========================== #
   has_many :rooms,       dependent:  :destroy
   has_many :employees,   dependent:  :destroy
-
   # ======================== VALIDATIONS ============================ #
   validates :name, :city, :address, presence: true
   validates :phone_number, uniqueness: true, presence: true, numericality: { only_integer: true },
-                          length: { in: 6...12 }
-
+                          length: { minimum: 6, maximum: 12 }
   # ======================== CALLBACKS ============================== #
   # ======================== OTHERS ================================= #
   api_accessible :details do |t|

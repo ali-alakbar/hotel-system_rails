@@ -19,30 +19,27 @@
 class Employee < ApplicationRecord
   # ======================== MODULES INCLUSION ====================== #
   extend Enumerize
-
   # ======================== CONSTANTS ============================== #
   # ======================== SCOPES ================================= #
   # ======================== ENUMS ================================== #
   enumerize :status, in: { pending: 1 , active: 2, inactive: 3 }
-
   # ======================== ASSOCIATIONS =========================== #
   belongs_to :hotel
   belongs_to :role
-
   # ======================== VALIDATIONS ============================ #
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates :joining_date, presence: true
   validates :salary, presence: true, numericality: { only_float: true, greater_than: 0 }
-  validate :valid_age, :valid_birthday
-  
+  validate  :valid_age, :valid_birthday
   # ======================== CALLBACKS ============================== #
   after_create :send_welcome_email
-  
   # ======================== OTHERS ================================= #
+  def full_name
+    "#{first_name} #{last_name}"
+  end
   
   private  
-
   # ======================== CLASS METHODS ========================== #
   # ======================== INSTANCE METHODS ======================= #
   def role_name
@@ -54,15 +51,11 @@ class Employee < ApplicationRecord
   end
 
   def valid_age
-    if age.present? && (age <= 20 )
-      errors.add(:age, 'Age must be greater than 20')
-    end 
+    errors.add(:age, 'Age must be greater than 20') unless age >= 20
   end
 
   def valid_birthday
-    if birthday.present? && (birthday < Date.new(1940, 1, 1) || birthday >= Date.new(2020, 1, 1))
-      errors.add(:birthday, 'Date is not valid, please try again.')
-    end
+    errors.add(:birthday, 'Date is not valid, please try again.') unless (birthday > Date.new(1940, 1, 1) || birthday <= Date.new(2020, 1, 1))
   end
 
 end

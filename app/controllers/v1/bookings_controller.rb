@@ -3,6 +3,7 @@
 module V1 
   class BookingsController < ApplicationController
     before_action :find_booking, only: %i[show destroy update]   
+    before_action :check_booking_conflicts, only: %i[create]
 
     def index
       bookings = Booking.all
@@ -10,6 +11,24 @@ module V1
         render_success(message: :data_found, data: bookings)
       else
         render_empty(root: :bookings, message: 'No bookings found')
+      end
+    end
+
+    def available_rooms
+      available_rooms = Booking.all.where.not(status: 'confirmed').where('check_out_date > ?', Date.today)
+      if available_rooms.present?
+        render_success(message: :data_found, data: available_rooms)
+      else
+        render_empty(root: :available_rooms, message: 'No available_rooms found')
+      end
+    end
+
+    def booked_rooms
+      booked_rooms = Booking.all.where(status: 'confirmed')
+      if booked_rooms.present?
+        render_success(message: :data_found, data: booked_rooms)
+      else
+        render_empty(root: :booked_rooms, message: 'No booked_rooms found')
       end
     end
 
@@ -47,7 +66,7 @@ module V1
     end
 
     private
-    
+
     def find_booking
       @find_booking ||= Booking.find(params[:id])
       rescue ActiveRecord::RecordNotFound
@@ -57,6 +76,16 @@ module V1
     def bookings_params
       params.require(:booking).permit(:room_id, :employee_id, :check_in_date, :check_out_date, :holder_id, :status)
     end
-  end
 
+    def check_booking_conflicts
+      user_check_in_date = params[:booking][:check_in_date].to_date # to_date because i recieve it as a string
+      user_check_out_date = params[:booking][:check_out_date].to_date
+      room_id = params[:booking][:room_id]
+      conflicting_bookings = Booking.where(room_id: room_id, status: 'confirmed').where(
+        "check_in_date < ? AND check_out_date > ?", user_check_out_date, user_check_in_date
+      ) # status should be cancled and within the range of date
+      render_unprocessable_entity(message: 'Booking not allowed: The room is already booked.') unless !conflicting_bookings.exists?
+    end
+
+  end
 end

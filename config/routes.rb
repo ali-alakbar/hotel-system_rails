@@ -13,8 +13,13 @@ Rails.application.routes.draw do
     resources :rooms
     resources :employees
     resources :roles
-    resources :bookings
+    resources :bookings do
+      collection do
+        get :available_rooms
+        get :booked_rooms
+      end
+    end
     resources :guests
     get '/status', to: 'status#index'
-  end  
+  end
 end
