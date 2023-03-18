@@ -6,8 +6,6 @@
 #
 #  booking_id               :integer    
 #  guest_id                 :integer    
-#  check_in_date            :date
-#  check_out_date           :date
 # ==================
 
 class BookingsGuest < ApplicationRecord
